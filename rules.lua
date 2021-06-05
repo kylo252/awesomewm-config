@@ -51,7 +51,6 @@ function rules.create(clientkeys, clientbuttons)
       {
          rule = {},
          properties = {
-            titlebars_enabled = beautiful.titlebars_enabled,
             border_width = beautiful.border_width,
             border_color = beautiful.border_normal,
             focus = awful.client.focus.filter,
@@ -59,7 +58,8 @@ function rules.create(clientkeys, clientbuttons)
             keys = clientkeys,
             buttons = clientbuttons,
             screen = awful.screen.preferred,
-            placement = awful.placement.centered
+            placement = awful.placement.left,
+            fullscreen = false
          },
       },
       -- Floating clients.
@@ -93,8 +93,6 @@ function rules.create(clientkeys, clientbuttons)
             }
          }, properties = {floating = true}
       },
-
-      -- Fullscreen clients
       {
          rule_any = {
             class = {
@@ -110,7 +108,8 @@ function rules.create(clientkeys, clientbuttons)
             },
          }, properties = {
                 tag = 5,
-                switch_to_tags = true
+                switch_to_tags = true,
+                fullscreen = false
             }
       },
 

@@ -35,13 +35,15 @@ local cycle_prev   = true  -- cycle with only the previously focused client or a
 local keys = {}
 
 local apps = {
-    terminal = "kitty",
-    browser = "flatpak run com.github.Eloston.UngoogledChromium --enable-features=WebUIDarkMode --force-dark-mode --enable-native-gpu-memory-buffers %U --incognito",
+    terminal = "alacritty",
+    terminalAlt = "alacritty --config-file=" .. os.getenv("HOME") .. "/.config/alacritty/alacritty-remote.yml",
+    browser = os.getenv("HOME") .. "/.nix-profile/bin/chromium --enable-features=WebUIDarkMode --force-dark-mode --enable-native-gpu-memory-buffers %U --incognito",
     edge = "microsoft-edge",
     teams = "teams",
-    -- launcher = "rofi -show combi",
-    launcher = "rofi -normal-window -modi drun -show drun -theme " .. theme_config_dir .. "rofi.rasi",
+    launcher = "rofi -show combi", -- -display-combi '  '",
+    dlauncher = "rofi -normal-window -modi drun -show drun -theme " .. theme_config_dir .. "rofi.rasi",
     quickmenue = "rofi -show run -theme dmenu ",
+    windowrunner = "rofi -normal-window -modi window -show window -theme " .. theme_config_dir .. "rofi.rasi",
     filemanager = "pcmanfm",
     screenshot = "flameshot gui"
 }
@@ -165,10 +167,19 @@ keys.globalkeys = gears.table.join(
     awful.key({modkey}, "Return", function() awful.spawn(apps.terminal) end,
             {description = "open a terminal", group = "launcher"}),
 
-    awful.key({modkey}, "r", function() awful.spawn(apps.launcher) end,
+    awful.key({modkey}, "i", function() awful.spawn(apps.terminalAlt) end,
+            {description = "open alt terminal", group = "launcher"}),
+
+    awful.key({modkey}, "space", function() awful.spawn(apps.launcher) end,
             {description = "rofi launcher", group = "launcher"}),
 
-    awful.key({modkey}, "t", function() awful.spawn(apps.quickmenue) end,
+    awful.key({modkey}, "d", function() awful.spawn(apps.dlauncher) end,
+            {description = "rofi drun launcher", group = "launcher"}),
+
+    awful.key({modkey}, "Tab", function() awful.spawn(apps.windowrunner) end,
+            {description = "rofi windowcd launcher", group = "launcher"}),
+
+    awful.key({modkey}, "r", function() awful.spawn(apps.quickmenue) end,
             {description = "rofi menu", group = "launcher"}),
 
     awful.key({ modkey }, "g", function () awful.spawn(apps.browser) end,
@@ -274,7 +285,8 @@ keys.globalkeys = gears.table.join(
     awful.key({modkey}, "t", function() awful.screen.focus_relative(1) end,
         {description = "focus previous by index", group = "focus"}),
 
-
+    awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
+              {description = "toggle floating", group = "client"}),
 
    -- =========================================
    -- LAYOUT CONTROL
@@ -339,11 +351,11 @@ keys.globalkeys = gears.table.join(
     --     {description = "decrement useless gaps", group = "layout"}),
 
     -- select next layout
-    awful.key({modkey}, "space", function() awful.layout.inc(1) end,
+    awful.key({altkey}, "space", function() awful.layout.inc(1) end,
         {description = "select next", group = "layout"}),
 
     -- select previous layout
-    awful.key({modkey, "Shift"}, "space", function() awful.layout.inc(-1) end,
+    awful.key({altkey, "Shift"}, "space", function() awful.layout.inc(-1) end,
         {description = "select previous", group = "layout"})
 )
 
@@ -446,7 +458,7 @@ keys.clientkeys = gears.table.join(
     ),
 
     -- Max-Min
-    awful.key({modkey}, "d",
+    awful.key({modkey}, "n",
         function (c)
             -- The client currently has the input focus, so it cannot be
             -- minimized, since minimized clients can't have the focus.

@@ -16,6 +16,7 @@ local dpi = beautiful.xresources.apply_dpi
 local awful = require("awful")
 local gears = require("gears")
 
+local slidebar = require('slidebar')
 local tag_list = require("widgets.tag-list")
 local separator = require("widgets.horizontal-separator")
 local folder = require("widgets.folder")
@@ -31,8 +32,6 @@ local docked_panel_width = dpi(8)
 -- ===================================================================
 -- Bar Creation
 -- ===================================================================
-
-
 function vertical_wibox_config(s)
 
     -- Create the vertical wibox
@@ -65,7 +64,7 @@ function vertical_wibox_config(s)
         {
             layout = wibox.layout.fixed.vertical,
             -- add taglist widget
-            tag_list.create(s),
+            tag_list.create(s, wibox.layout.fixed.vertical()),
             -- add folders widgets
          {
             separator,
@@ -121,4 +120,5 @@ left_panel.create = function(s)
 
     gears.timer.delayed_call(vertical_wibox_config, s)
 end
+
 return left_panel

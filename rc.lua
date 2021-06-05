@@ -32,7 +32,7 @@ apps = {
    launcher = "rofi -normal-window -modi drun -show drun -theme " .. theme_config_dir .. "rofi.rasi",
    lock = "i3lock",
    screenshot = "scrot -e 'mv $f ~/Pictures/ 2>/dev/null'",
-   browser = "flatpak run com.github.Eloston.UngoogledChromium --enable-features=WebUIDarkMode --force-dark-mode --enable-native-gpu-memory-buffers %U --incognito",
+   browser = "chromium --enable-features=WebUIDarkMode --force-dark-mode --enable-native-gpu-memory-buffers %U --incognito",
    filebrowser = "pcmanfm"
 }
 
@@ -45,9 +45,9 @@ network_interfaces = {
 
 -- List of apps to run on start-up
 local run_on_start_up = {
-   "picom --experimental-backends --config " .. theme_config_dir .. "picom.conf",
+   "picom --experimental-backends",  -- "--config " .. theme_config_dir .. "picom.conf",
    "redshift",
-   "unclutter"
+   -- "unclutter"
 }
 
 
@@ -90,8 +90,8 @@ awful.rules.rules = create_rules(keys.clientkeys, keys.clientbuttons)
 -- Define layouts
 awful.layout.layouts = {
    awful.layout.suit.tile,
-   awful.layout.suit.floating,
-   awful.layout.suit.max,
+   -- awful.layout.suit.floating,
+   -- awful.layout.suit.max,
 }
 
 -- remove gaps if layout is set to max
@@ -148,3 +148,4 @@ screen.connect_signal("property::geometry", awesome.restart)
 
 collectgarbage("setpause", 110)
 collectgarbage("setstepmul", 1000)
+

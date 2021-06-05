@@ -22,9 +22,9 @@ local naughty = require("naughty")
 
 local is_blurred = false;
 
-local wallpaper_dir = gears.filesystem.get_configuration_dir() .. "/wallpaper"
-local wallpaper = wallpaper_dir .. "/wallpaper.jpg"
-local blurred_wallpaper = wallpaper_dir .. "/blurredWallpaper.png"
+local wallpaper_dir = os.getenv("HOME") .. "/Pictures/wallpapers"
+local wallpaper = wallpaper_dir .. "/nebula.jpg"
+local blurred_wallpaper = wallpaper_dir .. "/blurred-nebula.png"
 
 awful.spawn.with_shell("feh --bg-fill " .. wallpaper)
 
