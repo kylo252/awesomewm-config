@@ -17,6 +17,7 @@ local gears = require("gears")
 local naughty = require("naughty")
 local beautiful = require("beautiful")
 local dpi = beautiful.xresources.apply_dpi
+local kbdcfg = require("widgets.keyboards")
 
 -- local xrandr = require("xrandr")
 -- local lain          = require("lain")
@@ -42,7 +43,10 @@ local apps = {
     teams = "teams",
     launcher = "rofi -show combi", -- -display-combi '  '",
     dlauncher = "rofi -normal-window -modi drun -show drun -theme " .. theme_config_dir .. "rofi.rasi",
-    quickmenue = "rofi -show run -theme dmenu ",
+    quickmenu = "rofi -show run -theme dmenu ",
+    -- translator = "bash -c ~/.local/bin/rofi_trans",
+    translator = os.getenv("HOME") .. "/.local/bin/rofi_trans",
+    -- translator = os.getenv("HOME") .. "/.config/rofi/rofi-translate/rofi_trans",
     windowrunner = "rofi -normal-window -modi window -show window -theme " .. theme_config_dir .. "rofi.rasi",
     filemanager = "pcmanfm",
     screenshot = "flameshot gui"
@@ -179,7 +183,7 @@ keys.globalkeys = gears.table.join(
     awful.key({modkey}, "Tab", function() awful.spawn(apps.windowrunner) end,
             {description = "rofi windowcd launcher", group = "launcher"}),
 
-    awful.key({modkey}, "r", function() awful.spawn(apps.quickmenue) end,
+    awful.key({modkey}, "r", function() awful.spawn(apps.quickmenu) end,
             {description = "rofi menu", group = "launcher"}),
 
     awful.key({ modkey }, "g", function () awful.spawn(apps.browser) end,
@@ -188,6 +192,8 @@ keys.globalkeys = gears.table.join(
     awful.key({ modkey }, "e", function () awful.spawn(apps.filemanager) end,
             {description = "run file manager", group = "launcher"}),
 
+    awful.key({modkey}, "t", function () awful.spawn(apps.translator) end,
+            {description = "run translator", group = "launcher"}),
 
    -- =========================================
    -- GENERAL
@@ -240,6 +246,8 @@ keys.globalkeys = gears.table.join(
     awful.key({ modkey, }, "z", function () awful.screen.focused().quake:toggle() end,
               {description = "dropdown application", group = "awesome"}),
 
+
+
    -- =========================================
    -- CLIENT FOCUSING
    -- =========================================
@@ -282,7 +290,7 @@ keys.globalkeys = gears.table.join(
        {description = "focus previous by index", group = "focus"}),
 
    -- Focus screen by index (cycle through screens)
-    awful.key({modkey}, "t", function() awful.screen.focus_relative(1) end,
+    awful.key({modkey, "Control" }, "t", function() awful.screen.focus_relative(1) end,
         {description = "focus previous by index", group = "focus"}),
 
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,

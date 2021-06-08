@@ -1,0 +1,6 @@
+[submodule "keyboard_layout"]
+	path = keyboard_layout
+	url = https://github.com/echuraev/keyboard_layout
+[submodule "slidebar"]
+	path = slidebar
+	url = https://github.com/mut-ex/awesome-wm-slidebar

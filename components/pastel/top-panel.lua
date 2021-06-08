@@ -31,11 +31,12 @@ local top_panel = {}
 local spr  = wibox.widget.textbox('   ')
 
 top_panel.create = function(s)
+
    local panel = awful.wibar({
       screen = s,
       position = "top",
       ontop = true,
-      -- height = beautiful.top_panel_height,
+          -- height = beautiful.top_panel_height,
       height = dpi(30),
       width = s.geometry.width,
    })
@@ -51,7 +52,8 @@ top_panel.create = function(s)
       {
          layout = wibox.layout.fixed.horizontal,
          wibox.layout.margin(wibox.widget.systray(), dpi(5), dpi(5), dpi(5), dpi(5)),
-         require("widgets.bluetooth"),
+         -- require("widgets.bluetooth"),
+         require("widgets.keyboards"),
          require("widgets.network")(),
          require("widgets.battery"),
          require("widgets.calendar").create(s),
