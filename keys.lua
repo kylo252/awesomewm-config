@@ -35,25 +35,6 @@ local cycle_prev   = true  -- cycle with only the previously focused client or a
 -- define module table
 local keys = {}
 
-local apps = {
-    terminal = "alacritty",
-    terminalAlt = "alacritty --config-file=" .. os.getenv("HOME") .. "/.config/alacritty/alacritty-remote.yml",
-    browser = os.getenv("HOME") .. "/.nix-profile/bin/chromium --enable-features=WebUIDarkMode --force-dark-mode --enable-native-gpu-memory-buffers %U --incognito",
-    edge = "microsoft-edge",
-    teams = "teams",
-    launcher = "rofi -show combi", -- -display-combi '  '",
-    -- dlauncher = "rofi -normal-window -modi drun -show drun -theme " .. theme_config_dir .. "rofi.rasi",
-    quickmenu = "rofi -show run -theme dmenu ",
-    dlauncher = os.getenv("HOME") .. "/.config/rofi/launchers/slate/launcher.sh",
-    power_manager = os.getenv("HOME") .. "/.config/rofi/powermenu/powermenu.sh",
-    -- translator = "bash -c ~/.local/bin/rofi_trans",
-    translator = os.getenv("HOME") .. "/.local/bin/rofi_trans",
-    -- translator = os.getenv("HOME") .. "/.config/rofi/rofi-translate/rofi_trans",
-    windowrunner = "rofi -normal-window -modi window -show window -theme " .. theme_config_dir .. "rofi.rasi",
-    filemanager = "pcmanfm",
-    screenshot = "flameshot gui"
-}
-
 -- ===================================================================
 -- Movement Functions (Called by some keybinds)
 -- ===================================================================
@@ -306,18 +287,18 @@ keys.globalkeys = gears.table.join(
    -- =========================================
 
    -- Number of master clients
-   awful.key({altkey}, "space",
-      function()
-         awful.tag.incnmaster( 1, nil, true)
-      end,
-      {description = "increase the number of master clients", group = "layout"}
-   ),
-   awful.key({altkey, "Shift"}, "space",
-      function()
-         awful.tag.incnmaster(-1, nil, true)
-      end,
-      {description = "decrease the number of master clients", group = "layout"}
-   ),
+   -- awful.key({altkey}, "space",
+   --    function()
+   --       awful.tag.incnmaster( 1, nil, true)
+   --    end,
+   --    {description = "increase the number of master clients", group = "layout"}
+   -- ),
+   -- awful.key({altkey, "Shift"}, "space",
+   --    function()
+   --       awful.tag.incnmaster(-1, nil, true)
+   --    end,
+   --    {description = "decrease the number of master clients", group = "layout"}
+   -- ),
 
    -- Number of columns
    awful.key({altkey, "Shift"}, "j",
@@ -331,7 +312,7 @@ keys.globalkeys = gears.table.join(
          awful.tag.incncol(-1, nil, true)
       end,
       {description = "decrease the number of columns", group = "layout"}
-   )
+   ),
 
     -- On-the-fly useless gaps change
     -- awful.key({ altkey, "Control" }, "+", function () lain.util.useless_gaps_resize(1) end,
@@ -339,13 +320,13 @@ keys.globalkeys = gears.table.join(
     -- awful.key({ altkey, "Control" }, "-", function () lain.util.useless_gaps_resize(-1) end,
     --     {description = "decrement useless gaps", group = "layout"}),
 
---     -- select next layout
---     awful.key({altkey}, "space", function() awful.layout.inc(1) end,
---         {description = "select next", group = "layout"}),
---
---     -- select previous layout
---     awful.key({altkey, "Shift"}, "space", function() awful.layout.inc(-1) end,
---         {description = "select previous", group = "layout"})
+     -- select next layout
+     awful.key({altkey}, "space", function() awful.layout.inc(1) end,
+         {description = "select next layout", group = "layout"}),
+
+     -- select previous layout
+     awful.key({altkey, "Shift"}, "space", function() awful.layout.inc(-1) end,
+         {description = "select previous layout", group = "layout"})
 )
 
 
