@@ -20,7 +20,15 @@ local screen_width = awful.screen.focused().geometry.width
 -- define module table
 local rules = {}
 
-
+local tagnames  = {
+  shell = "",
+  chrome = "",
+  code = "",
+  git = "",
+  msg = "",
+  manage = "",
+  media = "",
+}
 -- ===================================================================
 -- Rules
 -- ===================================================================
@@ -45,6 +53,7 @@ function rules.create(clientkeys, clientbuttons)
          properties = {maximized = true, floating = true, titlebars_enabled = false},
       }
    end
+  
 
    return {
       -- All clients will match this rule.
@@ -59,7 +68,8 @@ function rules.create(clientkeys, clientbuttons)
             buttons = clientbuttons,
             screen = awful.screen.preferred,
             placement = awful.placement.left,
-            fullscreen = false
+            fullscreen = false,
+            floating = false
          },
       },
       -- Floating clients.
@@ -94,23 +104,12 @@ function rules.create(clientkeys, clientbuttons)
          }, properties = {floating = true}
       },
       {
-         rule_any = {
-            class = {
-               "code",
-            },
-         }, properties = {fullscreen = true}
+        rule_any = { class = { "Code" } },
+        properties = {tag = tagnames.code, floating = false }
       },
-
       {
-         rule_any = {
-            class = {
-               "teams",
-            },
-         }, properties = {
-                tag = 5,
-                switch_to_tags = true,
-                fullscreen = false
-            }
+        rule_any = { class = { "Microsoft Teams - Preview", "Evolution" } },
+        properties = { tag = tagnames.msg, floating = false }
       },
 
       -- Visualizer
