@@ -53,7 +53,6 @@ function rules.create(clientkeys, clientbuttons)
          properties = {maximized = true, floating = true, titlebars_enabled = false},
       }
    end
-  
 
    return {
       -- All clients will match this rule.
