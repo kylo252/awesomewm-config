@@ -48,7 +48,7 @@ network_interfaces = {wlan = 'wlp58s0', lan = 'enp0s31f6'}
 -- List of apps to run on start-up
 local run_on_start_up = {
   "picom --config " .. theme_config_dir .. "picom.conf",
-  "feh --bg-fill --random ~/Pictures/wallpapers/*",
+  "feh --bg-fill " .. os.getenv("HOME") ..  "/Pictures/wallpapers/nebula.jpg",
   "autorandr -c",
   "imwheel -b \"4 5\" -kill",
   "redshift",
@@ -62,13 +62,38 @@ local run_on_start_up = {
 -- Import notification appearance
 require("components.notifications")
 
+local run_once = function(cmd)
+  local findme = cmd
+  local firstspace = cmd:find(' ')
+  if firstspace then
+      findme = cmd:sub(0, firstspace - 1)
+  end
+  awful.spawn.easy_async_with_shell(
+    string.format('pgrep -u $USER -x %s > /dev/null || %s', findme, cmd),
+    function(stderr)
+      -- Debugger
+      if not stderr or stderr == '' or not debug_mode then
+        return
+      end
+      naughty.notification({
+        app_name = 'Start-up Applications',
+        title = '<b>Oof! Error detected when starting an application!</b>',
+        message = stderr:gsub('%\n', ''),
+        timeout = 20,
+        icon = require('beautiful').awesome_icon
+      })
+    end
+  )
+end
+
 -- Run all the apps listed in run_on_start_up
 for _, app in ipairs(run_on_start_up) do
-  local findme = app
-  local firstspace = app:find(" ")
-  if firstspace then findme = app:sub(0, firstspace - 1) end
-  -- pipe commands to bash to allow command to be shell agnostic
-  awful.spawn.with_shell(string.format("echo 'pgrep -u $USER -x %s > /dev/null || (%s)' | bash -", findme, app), false)
+  run_once(app)
+  -- local findme = app
+  -- local firstspace = app:find(" ")
+  -- if firstspace then findme = app:sub(0, firstspace - 1) end
+  -- -- pipe commands to bash to allow command to be shell agnostic
+  -- awful.spawn.with_shell(string.format("echo 'pgrep -u $USER -x %s > /dev/null || (%s)' | bash -c", findme, app), false)
 end
 
 -- Import theme
