@@ -42,8 +42,10 @@ local apps = {
     edge = "microsoft-edge",
     teams = "teams",
     launcher = "rofi -show combi", -- -display-combi '  '",
-    dlauncher = "rofi -normal-window -modi drun -show drun -theme " .. theme_config_dir .. "rofi.rasi",
+    -- dlauncher = "rofi -normal-window -modi drun -show drun -theme " .. theme_config_dir .. "rofi.rasi",
     quickmenu = "rofi -show run -theme dmenu ",
+    dlauncher = os.getenv("HOME") .. "/.config/rofi/launchers/slate/launcher.sh",
+    power_manager = os.getenv("HOME") .. "/.config/rofi/powermenu/powermenu.sh",
     -- translator = "bash -c ~/.local/bin/rofi_trans",
     translator = os.getenv("HOME") .. "/.local/bin/rofi_trans",
     -- translator = os.getenv("HOME") .. "/.config/rofi/rofi-translate/rofi_trans",
@@ -195,6 +197,9 @@ keys.globalkeys = gears.table.join(
     awful.key({modkey}, "t", function () awful.spawn(apps.translator) end,
             {description = "run translator", group = "launcher"}),
 
+    awful.key({modkey, "Ctrl"}, "F12", function () awful.spawn(apps.power_manager) end,
+            {description = "Power Manager", group = "launcher"}),
+
    -- =========================================
    -- GENERAL
    -- =========================================
@@ -231,12 +236,12 @@ keys.globalkeys = gears.table.join(
     awful.key({ modkey }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
 
-  -- Non-empty tag browsing
---     awful.key({ modkey, altkey }, "Left", function () lain.util.tag_view_nonempty(-1) end,
---             {description = "view  previous nonempty", group = "awesome"}),
--- 
---     awful.key({ modkey, altkey }, "Right", function () lain.util.tag_view_nonempty(1) end,
---             {description = "view  previous nonempty", group = "awesome"}),
+    -- Non-empty tag browsing
+    awful.key({ modkey, altkey }, "Left", function () lain.util.tag_view_nonempty(-1) end,
+            {description = "view  previous nonempty", group = "awesome"}),
+
+    awful.key({ modkey, altkey }, "Right", function () lain.util.tag_view_nonempty(1) end,
+            {description = "view  previous nonempty", group = "awesome"}),
 
     -- X screen locker
     awful.key({ altkey, "Control" }, "l", function () os.execute(scrlocker) end,
@@ -293,7 +298,7 @@ keys.globalkeys = gears.table.join(
     awful.key({modkey, "Control" }, "t", function() awful.screen.focus_relative(1) end,
         {description = "focus previous by index", group = "focus"}),
 
-    awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
+    awful.key({modkey, "Control" }, "space",  awful.client.floating.toggle,
               {description = "toggle floating", group = "client"}),
 
    -- =========================================
@@ -301,56 +306,32 @@ keys.globalkeys = gears.table.join(
    -- =========================================
 
    -- Number of master clients
-   awful.key({modkey, altkey}, "h",
+   awful.key({altkey}, "space",
       function()
          awful.tag.incnmaster( 1, nil, true)
       end,
       {description = "increase the number of master clients", group = "layout"}
    ),
-   awful.key({ modkey, altkey }, "l",
+   awful.key({altkey, "Shift"}, "space",
       function()
          awful.tag.incnmaster(-1, nil, true)
       end,
       {description = "decrease the number of master clients", group = "layout"}
    ),
-   -- awful.key({ modkey, altkey }, "Left",
-   --    function()
-   --       awful.tag.incnmaster( 1, nil, true)
-   --    end,
-   --    {description = "increase the number of master clients", group = "layout"}
-   -- ),
-   -- awful.key({ modkey, altkey }, "Right",
-   --    function()
-   --       awful.tag.incnmaster(-1, nil, true)
-   --    end,
-   --    {description = "decrease the number of master clients", group = "layout"}
-   -- ),
 
    -- Number of columns
-   awful.key({modkey, altkey}, "k",
+   awful.key({altkey, "Shift"}, "j",
       function()
          awful.tag.incncol(1, nil, true)
       end,
       {description = "increase the number of columns", group = "layout"}
    ),
-   awful.key({modkey, altkey}, "j",
+   awful.key({altkey, "Shift"}, "k",
       function()
          awful.tag.incncol(-1, nil, true)
       end,
       {description = "decrease the number of columns", group = "layout"}
-   ),
-   -- awful.key({modkey, altkey}, "Up",
-   --    function()
-   --       awful.tag.incncol(1, nil, true)
-   --    end,
-   --    {description = "increase the number of columns", group = "layout"}
-   -- ),
-   -- awful.key({modkey, altkey}, "Down",
-   --    function()
-   --       awful.tag.incncol(-1, nil, true)
-   --    end,
-   --    {description = "decrease the number of columns", group = "layout"}
-   -- ),
+   )
 
     -- On-the-fly useless gaps change
     -- awful.key({ altkey, "Control" }, "+", function () lain.util.useless_gaps_resize(1) end,
@@ -358,13 +339,13 @@ keys.globalkeys = gears.table.join(
     -- awful.key({ altkey, "Control" }, "-", function () lain.util.useless_gaps_resize(-1) end,
     --     {description = "decrement useless gaps", group = "layout"}),
 
-    -- select next layout
-    awful.key({altkey}, "space", function() awful.layout.inc(1) end,
-        {description = "select next", group = "layout"}),
-
-    -- select previous layout
-    awful.key({altkey, "Shift"}, "space", function() awful.layout.inc(-1) end,
-        {description = "select previous", group = "layout"})
+--     -- select next layout
+--     awful.key({altkey}, "space", function() awful.layout.inc(1) end,
+--         {description = "select next", group = "layout"}),
+--
+--     -- select previous layout
+--     awful.key({altkey, "Shift"}, "space", function() awful.layout.inc(-1) end,
+--         {description = "select previous", group = "layout"})
 )
 
 
@@ -493,7 +474,7 @@ keys.clientkeys = gears.table.join(
         {description = "(un)maximize horizontally", group = "client"}),
 
     -- on top
-    awful.key({ modkey }, "t", function (c) c.ontop = not c.ontop end,
+    awful.key({ modkey, altkey }, "t", function (c) c.ontop = not c.ontop end,
         {description = "toggle keep on top", group = "client"}),
 
    -- =========================================
@@ -569,14 +550,7 @@ keys.clientkeys = gears.table.join(
       function()
          awful.util.spawn(apps.screenshot, false)
       end,
-    {description = "play/pause music", group = "hotkeys"}),
-
-    -- Copy primary to clipboard (terminals to gtk)
-    awful.key({ modkey }, "c", function () awful.spawn.with_shell("xsel | xsel -i -b") end,
-              {description = "copy terminal to gtk", group = "hotkeys"}),
-    -- Copy clipboard to primary (gtk to terminals)
-    awful.key({ modkey }, "v", function () awful.spawn.with_shell("xsel -b | xsel") end,
-              {description = "copy gtk to terminal", group = "hotkeys"})
+    {description = "play/pause music", group = "hotkeys"})
 
 )
    -- =========================================

@@ -38,7 +38,7 @@ pastel.initialize = function()
       -- if s.index == 1 then
       -- left_panel.create(s)
       -- end
-      slide_panel.create(s)
+      -- slide_panel.create(s)
 
       -- Add the top panel to every screen
       top_panel.create(s)

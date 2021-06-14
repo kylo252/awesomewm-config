@@ -22,7 +22,7 @@ local themes = {
 
 -- change this number to use the corresponding theme
 local theme = themes[1]
-local theme_config_dir = gears.filesystem.get_configuration_dir() .. "/configuration/" .. theme .. "/"
+local theme_config_dir = gears.filesystem.get_configuration_dir() .. "configuration/" .. theme .. "/"
 
 -- define default apps (global variable so other components can access it)
 apps = {
@@ -45,7 +45,8 @@ network_interfaces = {
 
 -- List of apps to run on start-up
 local run_on_start_up = {
-   "picom --experimental-backends",  -- "--config " .. theme_config_dir .. "picom.conf",
+   -- "picom --config " .. theme_config_dir .. "picom.conf",
+   "picom",
    "redshift",
    -- "unclutter"
 }

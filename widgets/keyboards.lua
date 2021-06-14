@@ -3,8 +3,8 @@ local awful = require("awful")
 local keyboard_layout = require("keyboard_layout")
 local kbdcfg = keyboard_layout.kbdcfg({cmd = "setxkbmap -variant", type = "tui"})
 
-kbdcfg.add_primary_layout("Swedish", "SE", "basic")
 kbdcfg.add_primary_layout("Hack", "HA", "hack")
+kbdcfg.add_primary_layout("Swedish", "SE", "basic")
 
 kbdcfg.bind()
 
