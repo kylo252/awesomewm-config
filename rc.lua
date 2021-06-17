@@ -14,12 +14,12 @@ local awful = require("awful")
 
 local themes = {
   "pastel", -- 1
-  "mirage" -- 2
+  "powerarrow" -- 2
 }
 
 -- change this number to use the corresponding theme
 local theme = themes[1]
-local theme_config_dir = gears.filesystem.get_configuration_dir() .. "configuration/" .. theme .. "/"
+local theme_config_dir = gears.filesystem.get_configuration_dir() .. "configuration/" .. "/"
 
 -- define default apps (global variable so other components can access it)
 apps = {
@@ -85,7 +85,7 @@ local run_once = function(cmd)
   )
 end
 
-local function set_wallpaper(s)
+function set_wallpaper(s)
     -- Wallpaper
     if beautiful.wallpaper then
         local wallpaper = beautiful.wallpaper
@@ -112,11 +112,28 @@ end
 
 -- Import theme
 local beautiful = require("beautiful")
-beautiful.init(gears.filesystem.get_configuration_dir() .. "themes/" .. theme .. "-theme.lua")
+beautiful.init(gears.filesystem.get_configuration_dir() .. "themes/" .. theme .. "/theme.lua")
 
 -- Initialize theme
-local selected_theme = require(theme)
-selected_theme.initialize()
+-- local selected_theme = require(theme)
+ -- require("components.pastel.wallpaper")
+ -- require("components.exit-screen")
+ -- require("components.volume-adjust")
+
+ -- Import panels
+ local top_panel = require("components.top-panel")
+ local slide_panel = require("components.slide-panel")
+
+ -- Set up each screen (add tags & panels)
+ awful.screen.connect_for_each_screen(function(s)
+    -- Only add the left panel on the primary screen
+    if s.index == 1 then
+      slide_panel.create(s)
+    end
+
+    -- Add the top panel to every screen
+    top_panel.create(s)
+ end)
 
 -- Import Keybinds
 local keys = require("keys")

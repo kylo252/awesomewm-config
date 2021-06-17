@@ -25,7 +25,7 @@ local tag_list = {}
 -- Widget Creation Functions
 -- ===================================================================
 
-local theme = require("themes.pastel-theme")
+local theme = require("themes.pastel.theme")
 theme.taglist_font                        = "FontAwesome 24"
 theme.taglist_fg_focus                    = "#98c379"
 theme.taglist_fg_urgent                   = "#CC9393"
