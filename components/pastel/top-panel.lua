@@ -42,13 +42,16 @@ top_panel.create = function(s)
    })
 
    panel:setup {
+      expand = "none",
       layout = wibox.layout.align.horizontal,
       {
-        layout = wibox.layout.align.horizontal,
+        layout = wibox.layout.fixed.horizontal,
         tag_list.create(s),
         spr,
+        task_list.create(s),
+        spr,
       },
-       task_list.create(s),
+      require("widgets.calendar").create(s),
       {
          layout = wibox.layout.fixed.horizontal,
          wibox.layout.margin(wibox.widget.systray(), dpi(5), dpi(5), dpi(5), dpi(5)),
@@ -56,7 +59,6 @@ top_panel.create = function(s)
          require("widgets.keyboards"),
          require("widgets.network")(),
          require("widgets.battery"),
-         require("widgets.calendar").create(s),
          wibox.layout.margin(require("widgets.layout-box"), dpi(5), dpi(5), dpi(5), dpi(5))
       }
    }

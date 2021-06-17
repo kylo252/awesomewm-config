@@ -18,6 +18,7 @@ local naughty = require("naughty")
 local beautiful = require("beautiful")
 local dpi = beautiful.xresources.apply_dpi
 local kbdcfg = require("widgets.keyboards")
+local xrandr = require("xrandr")
 
 -- local xrandr = require("xrandr")
 -- local lain          = require("lain")
@@ -146,10 +147,10 @@ keys.globalkeys = gears.table.join(
     -- Take a screenshot
     -- https://github.com/lcpz/dots/blob/master/bin/screenshot
     awful.key({ altkey }, "p", function() os.execute("screenshot") end,
-              {description = "take a screenshot", group = "hotkeys"}),
+              {description = "take a screenshot", group = "launcher"}),
 
     awful.key({ modkey }, "p", function() awful.spawn(apps.screenshot) end,
-              {description = "open flameshot", group = "hotkeys"}),
+              {description = "open flameshot", group = "launcher"}),
 
     awful.key({modkey}, "Return", function() awful.spawn(apps.terminal) end,
             {description = "open a terminal", group = "launcher"}),
@@ -279,9 +280,6 @@ keys.globalkeys = gears.table.join(
     awful.key({modkey, "Control" }, "t", function() awful.screen.focus_relative(1) end,
         {description = "focus previous by index", group = "focus"}),
 
-    awful.key({modkey, "Control" }, "space",  awful.client.floating.toggle,
-              {description = "toggle floating", group = "client"}),
-
    -- =========================================
    -- LAYOUT CONTROL
    -- =========================================
@@ -299,6 +297,17 @@ keys.globalkeys = gears.table.join(
    --    end,
    --    {description = "decrease the number of master clients", group = "layout"}
    -- ),
+    -- Layout control
+    awful.key({ modkey, "Control" }, "s",
+      function ()
+        awful.client.swap(awful.client.getmaster())
+      end,
+      {description = "move to master", group = "layout"}),
+    awful.key({ modkey, altkey}, "s",
+      function ()
+        awful.client.move_to_screen()
+      end,
+      {description = "move to screen", group = "layout"}),
 
    -- Number of columns
    awful.key({altkey, "Shift"}, "j",
@@ -319,6 +328,8 @@ keys.globalkeys = gears.table.join(
     --     {description = "increment useless gaps", group = "layout"}),
     -- awful.key({ altkey, "Control" }, "-", function () lain.util.useless_gaps_resize(-1) end,
     --     {description = "decrement useless gaps", group = "layout"}),
+     awful.key({altkey, "Control"}, "m", function() xrandr.xrandr() end,
+         {description = "change monitor layout", group = "layout"}),
 
      -- select next layout
      awful.key({altkey}, "space", function() awful.layout.inc(1) end,
@@ -401,7 +412,7 @@ keys.clientkeys = gears.table.join(
    ),
 
    -- toggle fullscreen
-   awful.key({modkey}, "f",
+   awful.key({altkey, modkey}, "f",
       function(c)
          c.fullscreen = not c.fullscreen
       end,
@@ -457,6 +468,9 @@ keys.clientkeys = gears.table.join(
     -- on top
     awful.key({ modkey, altkey }, "t", function (c) c.ontop = not c.ontop end,
         {description = "toggle keep on top", group = "client"}),
+
+    awful.key({modkey}, "f",  awful.client.floating.toggle,
+              {description = "toggle floating", group = "client"}),
 
    -- =========================================
    -- FUNCTION KEYS
@@ -524,14 +538,7 @@ keys.clientkeys = gears.table.join(
           awful.spawn("mpc toggle", false)
        end,
        {description = "play/pause music", group = "hotkeys"}
-    ),
-
-   -- Screenshot on prtscn using scrot
-   awful.key({}, "Print",
-      function()
-         awful.util.spawn(apps.screenshot, false)
-      end,
-    {description = "play/pause music", group = "hotkeys"})
+    )
 
 )
    -- =========================================

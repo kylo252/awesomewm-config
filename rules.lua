@@ -38,21 +38,9 @@ local tagnames  = {
 function rules.create(clientkeys, clientbuttons)
    local rofi_rule = {}
 
-   if beautiful.name == "mirage" then
-      rofi_rule = {
-         rule_any = {name = {"rofi"}},
-         properties = {floating = true, titlebars_enabled = false},
-         callback = function(c)
-            if beautiful.name == "mirage" then
-               awful.placement.left(c)
-            end
-         end
-      }
-   else rofi_rule = {
-         rule_any = {name = {"rofi"}},
-         properties = {maximized = true, floating = true, titlebars_enabled = false},
-      }
-   end
+
+
+   
 
    return {
       -- All clients will match this rule.
@@ -67,8 +55,10 @@ function rules.create(clientkeys, clientbuttons)
             buttons = clientbuttons,
             screen = awful.screen.preferred,
             placement = awful.placement.left,
+            titlebars_enabled = true,
             fullscreen = false,
-            floating = false
+            floating = true,
+            maximized = false
          },
       },
       -- Floating clients.
@@ -103,12 +93,28 @@ function rules.create(clientkeys, clientbuttons)
          }, properties = {floating = true}
       },
       {
+        rule_any = { class = { "Alacritty" } },
+        properties = {tag = tagnames.shell, floating = false}
+      },
+      {
+        rule_any = { class = { "kitty" } },
+        properties = {tag = tagnames.code, floating = false}
+      },
+      {
         rule_any = { class = { "Code" } },
-        properties = {tag = tagnames.code, floating = false }
+        properties = {tag = tagnames.code, floating = true }
+      },
+      {
+        rule_any = { class = {"Chromium-browser" } },
+        properties = { tag = tagnames.browser, floating = false }
       },
       {
         rule_any = { class = { "Microsoft Teams - Preview", "Evolution" } },
         properties = { tag = tagnames.msg, floating = false }
+      },
+      {
+        rule_any = {name = {"rofi"}},
+        properties = {floating = true, },
       },
 
       -- Visualizer
@@ -130,9 +136,6 @@ function rules.create(clientkeys, clientbuttons)
             awful.placement.bottom(c)
          end
       },
-
-      -- rofi rule determined above
-      rofi_rule,
 
       -- File chooser dialog
       {

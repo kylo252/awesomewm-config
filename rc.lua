@@ -33,9 +33,8 @@ apps = {
   quickmenu = "rofi -show run -theme dmenu ",
   dlauncher = os.getenv("HOME") .. "/.config/rofi/launchers/slate/launcher.sh",
   power_manager = os.getenv("HOME") .. "/.config/rofi/powermenu/powermenu.sh",
-  -- translator = "bash -c ~/.local/bin/rofi_trans",
-  translator = os.getenv("HOME") .. "/.local/bin/rofi_trans",
-  -- translator = os.getenv("HOME") .. "/.config/rofi/rofi-translate/rofi_trans",
+  -- translator = os.getenv("HOME") .. "/.config/rofi-translate/rofi_trans",
+  translator = "rofi_trans",
   windowrunner = "rofi -normal-window -modi window -show window -theme " .. theme_config_dir .. "rofi.rasi",
   filemanager = "pcmanfm",
   screenshot = "flameshot gui"
@@ -85,6 +84,21 @@ local run_once = function(cmd)
     end
   )
 end
+
+local function set_wallpaper(s)
+    -- Wallpaper
+    if beautiful.wallpaper then
+        local wallpaper = beautiful.wallpaper
+        -- If wallpaper is a function, call it with the screen
+        if type(wallpaper) == "function" then
+            wallpaper = wallpaper(s)
+        end
+        gears.wallpaper.maximized(wallpaper, s, true)
+    end
+end
+
+-- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
+screen.connect_signal("property::geometry", set_wallpaper)
 
 -- Run all the apps listed in run_on_start_up
 for _, app in ipairs(run_on_start_up) do
