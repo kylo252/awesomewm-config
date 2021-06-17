@@ -47,7 +47,6 @@ network_interfaces = {wlan = 'wlp58s0', lan = 'enp0s31f6'}
 -- List of apps to run on start-up
 local run_on_start_up = {
   "picom --config " .. theme_config_dir .. "picom.conf",
-  "feh --bg-fill " .. os.getenv("HOME") ..  "/Pictures/wallpapers/nebula.jpg",
   "autorandr -c",
   "imwheel -b \"4 5\" -kill",
   "redshift",
@@ -87,14 +86,13 @@ end
 
 function set_wallpaper(s)
     -- Wallpaper
-    if beautiful.wallpaper then
-        local wallpaper = beautiful.wallpaper
-        -- If wallpaper is a function, call it with the screen
-        if type(wallpaper) == "function" then
-            wallpaper = wallpaper(s)
-        end
-        gears.wallpaper.maximized(wallpaper, s, true)
+    local wallpaper = os.getenv("HOME") .. "/Pictures/wallpapers/nebula.jpg"
+
+    -- If wallpaper is a function, call it with the screen
+    if type(wallpaper) == "function" then
+        wallpaper = wallpaper(s)
     end
+    gears.wallpaper.maximized(wallpaper, s, true)
 end
 
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
@@ -122,17 +120,18 @@ beautiful.init(gears.filesystem.get_configuration_dir() .. "themes/" .. theme ..
 
  -- Import panels
  local top_panel = require("components.top-panel")
- local slide_panel = require("components.slide-panel")
+ -- local slide_panel = require("components.slide-panel")
 
  -- Set up each screen (add tags & panels)
  awful.screen.connect_for_each_screen(function(s)
     -- Only add the left panel on the primary screen
-    if s.index == 1 then
-      slide_panel.create(s)
-    end
+    -- if s.index == 1 then
+    --   slide_panel.create(s)
+    -- end
 
     -- Add the top panel to every screen
     top_panel.create(s)
+    set_wallpaper(s)
  end)
 
 -- Import Keybinds
