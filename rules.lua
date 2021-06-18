@@ -22,7 +22,8 @@ local screen_width = awful.screen.focused().geometry.width
 -- define module table
 local rules = {}
 
-local tagnames= awful.util.tagnames
+local tag_list = require("widgets.tag-list")
+local tagnames = tag_list.names
 
 -- ===================================================================
 -- Rules

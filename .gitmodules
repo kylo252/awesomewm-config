@@ -4,9 +4,9 @@
 [submodule "slidebar"]
 	path = slidebar
 	url = https://github.com/mut-ex/awesome-wm-slidebar
-[submodule "lain"]
-	path = lain
-	url = https://github.com/lcpz/lain.git
 [submodule "freedesktop"]
 	path = freedesktop
 	url = https://github.com/lcpz/awesome-freedesktop.git
+[submodule "sharedtags"]
+	path = sharedtags
+	url = https://github.com/Drauthius/awesome-sharedtags

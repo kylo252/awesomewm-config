@@ -19,6 +19,7 @@ local beautiful = require("beautiful")
 local dpi = beautiful.xresources.apply_dpi
 local kbdcfg = require("widgets.keyboards")
 local xrandr = require("xrandr")
+local sharedtags = require('sharedtags')
 
 -- local xrandr = require("xrandr")
 -- local lain          = require("lain")
@@ -545,6 +546,8 @@ keys.clientkeys = gears.table.join(
    -- TAG BUTTONS
    -- =========================================
 
+local tag_list = require("widgets.tag-list")
+local tagnames = tag_list.names
 
 -- Bind all key numbers to tags
 for i = 1, 9 do
@@ -553,9 +556,9 @@ for i = 1, 9 do
       awful.key({modkey}, "#" .. i + 9,
        function()
           local screen = awful.screen.focused()
-          local tag = screen.tags[i]
+          local tag = tagnames[i]
           if tag then
-             tag:view_only()
+             sharedtags.viewonly(tag, screen)
           end
        end,
        {description = "view tag #"..i, group = "tag"}),
@@ -563,9 +566,9 @@ for i = 1, 9 do
       awful.key({ modkey, "Control" }, "#" .. i + 9,
         function ()
             local screen = awful.screen.focused()
-            local tag = screen.tags[i]
+            local tag = tagnames[i]
             if tag then
-               awful.tag.viewtoggle(tag)
+               sharedtags.viewtoggle(tag, screen)
             end
         end,
         {description = "toggle tag #" .. i, group = "tag"}),
@@ -573,7 +576,7 @@ for i = 1, 9 do
       awful.key({ modkey, "Shift" }, "#" .. i + 9,
         function ()
             if client.focus then
-                local tag = client.focus.screen.tags[i]
+                local tag = tagnames[i]
                 if tag then
                     client.focus:move_to_tag(tag)
                 end
@@ -584,7 +587,7 @@ for i = 1, 9 do
       awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9,
         function ()
             if client.focus then
-                local tag = client.focus.screen.tags[i]
+                local tag = tagnames[i]
                 if tag then
                     client.focus:toggle_tag(tag)
                 end

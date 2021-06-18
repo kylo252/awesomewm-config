@@ -15,6 +15,7 @@
 local gears = require("gears")
 local awful = require('awful')
 local wibox = require('wibox')
+local sharedtags = require('sharedtags')
 
 local dpi = require('beautiful').xresources.apply_dpi
 local capi = {button = button}
@@ -33,17 +34,16 @@ theme.taglist_font                        = "FontAwesome 24"
 theme.taglist_fg_focus                    = "#98c379"
 theme.taglist_fg_urgent                   = "#CC9393"
 
-awful.util.tagnames  = {
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-}
-
-awful.tag(awful.util.tagnames, s, awful.layout.suit.tile)
+ tag_list.names = sharedtags({
+  { name = "", layout = awful.layout.suit.tile },
+  { name = "", layout = awful.layout.suit.tile },
+  { name = "", layout = awful.layout.suit.tile },
+  { name = "", layout = awful.layout.suit.tile },
+  { name = "", layout = awful.layout.suit.tile },
+  { name = "", layout = awful.layout.suit.tile },
+  { name = "", layout = awful.layout.suit.tile },
+  { name = "",screen = 2, layout = awful.layout.suit.tile }
+})
 
 -- create the tag list widget
 tag_list.create = function(s, chosen_layout)
