@@ -1,3 +1,5 @@
+
+
 --      ████████╗ █████╗  ██████╗     ██╗     ██╗███████╗████████╗
 --      ╚══██╔══╝██╔══██╗██╔════╝     ██║     ██║██╔════╝╚══██╔══╝
 --         ██║   ███████║██║  ███╗    ██║     ██║███████╗   ██║
@@ -13,6 +15,7 @@
 local gears = require("gears")
 local awful = require('awful')
 local wibox = require('wibox')
+
 local dpi = require('beautiful').xresources.apply_dpi
 local capi = {button = button}
 local clickable_container = require('widgets.clickable-container')
@@ -31,13 +34,13 @@ theme.taglist_fg_focus                    = "#98c379"
 theme.taglist_fg_urgent                   = "#CC9393"
 
 awful.util.tagnames  = {
-  "",
+  "",
   "",
   "",
-  "",
+  "",
+  "",
   "",
   "",
-  "",
 }
 
 awful.tag(awful.util.tagnames, s, awful.layout.suit.tile)

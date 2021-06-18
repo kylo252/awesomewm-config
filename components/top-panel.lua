@@ -1,3 +1,5 @@
+
+
 --      ████████╗ ██████╗ ██████╗     ██████╗  █████╗ ███╗   ██╗███████╗██╗
 --      ╚══██╔══╝██╔═══██╗██╔══██╗    ██╔══██╗██╔══██╗████╗  ██║██╔════╝██║
 --         ██║   ██║   ██║██████╔╝    ██████╔╝███████║██╔██╗ ██║█████╗  ██║
@@ -46,6 +48,7 @@ top_panel.create = function(s)
       layout = wibox.layout.align.horizontal,
       {
         layout = wibox.layout.fixed.horizontal,
+        spr,
         tag_list.create(s),
         spr,
         task_list.create(s),

@@ -1,3 +1,5 @@
+
+
 --      ██████╗ ██╗   ██╗██╗     ███████╗███████╗
 --      ██╔══██╗██║   ██║██║     ██╔════╝██╔════╝
 --      ██████╔╝██║   ██║██║     █████╗  ███████╗
@@ -20,15 +22,8 @@ local screen_width = awful.screen.focused().geometry.width
 -- define module table
 local rules = {}
 
-local tagnames  = {
-  shell = "",
-  chrome = "",
-  code = "",
-  git = "",
-  msg = "",
-  manage = "",
-  media = "",
-}
+local tagnames= awful.util.tagnames
+
 -- ===================================================================
 -- Rules
 -- ===================================================================
@@ -36,11 +31,7 @@ local tagnames  = {
 
 -- return a table of client rules including provided keys / buttons
 function rules.create(clientkeys, clientbuttons)
-   local rofi_rule = {}
 
-
-
-   
 
    return {
       -- All clients will match this rule.
@@ -94,23 +85,27 @@ function rules.create(clientkeys, clientbuttons)
       },
       {
         rule_any = { class = { "Alacritty" } },
-        properties = {tag = tagnames.shell, floating = false}
+        properties = {floating = false}
       },
       {
         rule_any = { class = { "kitty" } },
-        properties = {tag = tagnames.code, floating = false}
+        properties = {tag = tagnames[4], floating = false}
       },
       {
         rule_any = { class = { "Code" } },
-        properties = {tag = tagnames.code, floating = true }
+        properties = {tag = tagnames[3], floating = true }
       },
       {
         rule_any = { class = {"Chromium-browser" } },
-        properties = { tag = tagnames.browser, floating = false }
+        properties = { tag = tagnames[2], floating = false }
       },
       {
-        rule_any = { class = { "Microsoft Teams - Preview", "Evolution" } },
-        properties = { tag = tagnames.msg, floating = false }
+        rule_any = { class = { "Microsoft Teams - Preview"} },
+        properties = { tag = tagnames[5], floating = false }
+      },
+      {
+        rule_any = { class = { "Evolution" } },
+        properties = { tag = tagnames[6], floating = false }
       },
       {
         rule_any = {name = {"rofi"}},
