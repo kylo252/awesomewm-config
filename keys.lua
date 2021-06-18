@@ -122,19 +122,29 @@ keys.desktopbuttons = gears.table.join(
    awful.button({ }, 5, awful.tag.viewprev)
 )
 
--- Mouse buttons on the client
+-- -- Mouse buttons on the client
 keys.clientbuttons = gears.table.join(
-   -- Raise client
-   awful.button({}, 1,
-      function(c)
-         client.focus = c
-         c:raise()
-      end
-   ),
 
-   -- Move and Resize Client
-   awful.button({modkey}, 1, awful.mouse.client.move),
-   awful.button({modkey}, 3, awful.mouse.client.resize)
+   -- Raise client
+   awful.button({}, 1, function(c) client.focus = c c:raise() end),
+
+--    -- Move and Resize Client
+--    awful.button({modkey}, 1, awful.mouse.client.move),
+--    awful.button({modkey}, 3, awful.mouse.client.resize)
+-- )
+
+
+    -- awful.button({ }, 1, function (c)
+    --     c:emit_signal("request::activate", "mouse_click", {raise = true})
+    -- end),
+    awful.button({ modkey }, 1, function (c)
+        c:emit_signal("request::activate", "mouse_click", {raise = true})
+        awful.mouse.client.move(c)
+    end),
+    awful.button({ modkey }, 3, function (c)
+        c:emit_signal("request::activate", "mouse_click", {raise = true})
+        awful.mouse.client.resize(c)
+    end)
 )
 
 -- ===================================================================

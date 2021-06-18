@@ -42,7 +42,7 @@ theme.taglist_fg_urgent                   = "#CC9393"
   { name = "", layout = awful.layout.suit.tile },
   { name = "", layout = awful.layout.suit.tile },
   { name = "", layout = awful.layout.suit.tile },
-  { name = "",screen = 2, layout = awful.layout.suit.tile }
+  { name = "", screen = 2, layout = awful.layout.suit.floating }
 })
 
 -- create the tag list widget
