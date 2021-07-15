@@ -230,14 +230,14 @@ keys.globalkeys = gears.table.join(
               {description="show help", group="awesome"}),
 
     -- Non-empty tag browsing
-    awful.key({ modkey, altkey }, "Left", function () lain.util.tag_view_nonempty(-1) end,
-            {description = "view  previous nonempty", group = "awesome"}),
+    awful.key({ modkey, altkey }, "Left", function () awful.tag.viewprev() end,
+            {description = "view  previous", group = "awesome"}),
 
-    awful.key({ modkey, altkey }, "Right", function () lain.util.tag_view_nonempty(1) end,
-            {description = "view  previous nonempty", group = "awesome"}),
+    awful.key({ modkey, altkey }, "Right", function () awful.tag.viewnext() end,
+            {description = "view  next", group = "awesome"}),
 
     -- X screen locker
-    awful.key({ altkey, "Control" }, "l", function () os.execute(scrlocker) end,
+    awful.key({ altkey, "control" }, "l", function () os.execute(scrlocker) end,
               {description = "lock screen", group = "awesome"}),
 
     -- Dropdown application
@@ -245,6 +245,9 @@ keys.globalkeys = gears.table.join(
               {description = "dropdown application", group = "awesome"}),
 
 
+    -- x change_laoyout
+    awful.key({ modkey, altkey }, "l", function () kbdcfg.switch() end,
+              {description = "switch keyboard layout", group = "awesome"}),
 
    -- =========================================
    -- CLIENT FOCUSING

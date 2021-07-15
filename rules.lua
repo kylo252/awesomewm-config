@@ -94,16 +94,16 @@ function rules.create(clientkeys, clientbuttons)
       },
       {
         rule_any = { class = { "Code" } },
-        properties = {tag = tagnames[3], floating = true }
+        properties = {tag = tagnames[3], floating = false }
       },
       {
         rule_any = { class = {"Chromium-browser" } },
-        properties = { tag = tagnames[2], floating = false }
+        properties = { floating = false }
       },
-      -- {
-      --   rule_any = { class = { "Microsoft Teams - Preview"} },
-      --   properties = { tag = tagnames[5], floating = false }
-      -- },
+      {
+        rule_any = { class = { "Microsoft Teams - Preview"} },
+        properties = { tag = tagnames[5], floating = false }
+      },
       {
         rule_any = { class = { "Evolution" } },
         properties = { tag = tagnames[6], floating = false }
