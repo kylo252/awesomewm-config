@@ -34,7 +34,7 @@ apps = {
   teams = "teams",
   launcher = "rofi -show combi", -- -display-combi '  '",
   -- dlauncher = "rofi -normal-window -modi drun -show drun -theme " .. theme_config_dir .. "rofi.rasi",
-  quickmenu = "rofi -show run -theme dmenu ",
+  quickmenu = "rofi -show drun -theme dmenu ",
   dlauncher = os.getenv("HOME") .. "/.config/rofi/launchers/slate/launcher.sh",
   power_manager = os.getenv("HOME") .. "/.config/rofi/powermenu/powermenu.sh",
   -- translator = os.getenv("HOME") .. "/.config/rofi-translate/rofi_trans",
@@ -51,6 +51,7 @@ network_interfaces = {wlan = 'wlp58s0', lan = 'enp0s31f6'}
 -- List of apps to run on start-up
 local run_on_start_up = {
   "picom --config " .. theme_config_dir .. "picom.conf",
+  "setxkbmap -layout 'se,se' -variant 'basic,hack'",
   "autorandr -c",
   "imwheel -b \"4 5\" -kill",
   "redshift",

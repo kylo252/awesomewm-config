@@ -246,7 +246,7 @@ keys.globalkeys = gears.table.join(
 
 
     -- x change_laoyout
-    awful.key({ modkey, altkey }, "l", function () kbdcfg.switch() end,
+    awful.key({ "Shift" }, "Shift_R", function () kbdcfg.switch() end,
               {description = "switch keyboard layout", group = "awesome"}),
 
    -- =========================================
