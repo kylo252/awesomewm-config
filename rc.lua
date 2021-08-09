@@ -41,7 +41,8 @@ apps = {
   translator = "rofi_trans",
   windowrunner = "rofi -normal-window -modi window -show window -theme " .. theme_config_dir .. "rofi.rasi",
   filemanager = "pcmanfm",
-  screenshot = "flameshot gui"
+  screenshot = "flameshot gui",
+  scrot = "~/.local/bin/scrot_launcher"
 }
 
 -- define wireless and ethernet interface names for the network widget

@@ -157,7 +157,7 @@ keys.globalkeys = gears.table.join(
 
     -- Take a screenshot
     -- https://github.com/lcpz/dots/blob/master/bin/screenshot
-    awful.key({ altkey }, "p", function() os.execute("screenshot") end,
+    awful.key({ altkey }, "p", function() os.execute(apps.scrot) end,
               {description = "take a screenshot", group = "launcher"}),
 
     awful.key({ modkey }, "p", function() awful.spawn(apps.screenshot) end,
