@@ -46,7 +46,7 @@ function rules.create(clientkeys, clientbuttons)
             keys = clientkeys,
             buttons = clientbuttons,
             screen = awful.screen.preferred,
-            placement = awful.placement.left,
+            placement = awful.placement.center,
             titlebars_enabled = true,
             fullscreen = false,
             floating = true,
@@ -89,8 +89,8 @@ function rules.create(clientkeys, clientbuttons)
         properties = {floating = false}
       },
       {
-        rule_any = { class = { "kitty" } },
-        properties = {tag = tagnames[4], floating = false}
+        rule_any = { class = { "Discord", "Element" } },
+        properties = {tag = tagnames[8], floating = true, titlebars_enabled = true}
       },
       {
         rule_any = { class = { "Code" } },

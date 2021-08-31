@@ -55,7 +55,6 @@ local run_on_start_up = {
   "setxkbmap -layout 'se,se' -variant 'basic,hack'",
   "autorandr -c",
   "imwheel -b \"4 5\" -kill",
-  "redshift",
   "unclutter"
 }
 
@@ -173,10 +172,10 @@ end)
 -- -- Autofocus a new client when previously focused one is closed
 require("awful.autofocus")
 --
--- -- Focus clients under mouse
-client.connect_signal("mouse::enter", function(c)
-  c:emit_signal("request::activate", "mouse_enter", {raise = false})
-end)
+-- -- -- Focus clients under mouse
+-- client.connect_signal("mouse::enter", function(c)
+--   c:emit_signal("request::activate", "mouse_enter", {raise = false})
+-- end)
 
 -- ===================================================================
 -- Screen Change Functions (ie multi monitor)
