@@ -25,26 +25,6 @@ local themes = {
 local theme = themes[1]
 local theme_config_dir = gears.filesystem.get_configuration_dir() .. "configuration/" .. "/"
 
--- define default apps (global variable so other components can access it)
-apps = {
-  terminal = "alacritty",
-  terminalAlt = "alacritty --config-file=" .. os.getenv("HOME") .. "/.config/alacritty/alacritty-remote.yml",
-  browser = os.getenv("HOME") .. "/.nix-profile/bin/chromium --enable-features=WebUIDarkMode --force-dark-mode --enable-native-gpu-memory-buffers %U --incognito",
-  edge = "microsoft-edge",
-  teams = "teams",
-  launcher = "rofi -show combi  -display-combi '  '",
-  -- dlauncher = "rofi -normal-window -modi drun -show drun -theme " .. theme_config_dir .. "rofi.rasi",
-  quickmenu = "rofi -show drun -theme dmenu ",
-  dlauncher = "rofi -no-lazy-grab -show drun -modi drun -theme sidetab-adapta",
-  power_manager = os.getenv("HOME") .. "/.config/rofi/powermenu/powermenu.sh",
-  -- translator = os.getenv("HOME") .. "/.config/rofi-translate/rofi_trans",
-  translator = "rofi_trans",
-  windowrunner = "rofi -normal-window -modi window -show window -theme alter",
-  filemanager = "pcmanfm",
-  screenshot = "flameshot gui",
-  scrot = "~/.local/bin/scrot_launcher"
-}
-
 -- define wireless and ethernet interface names for the network widget
 -- use `ip link` command to determine these
 network_interfaces = {wlan = 'wlp58s0', lan = 'enp0s31f6'}
