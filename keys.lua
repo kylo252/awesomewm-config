@@ -218,13 +218,6 @@ keys.globalkeys = gears.table.join(
     group = "launcher",
   }),
 
-  awful.key({ modkey,  "Ctrl"}, "F10", function()
-    awful.spawn(apps.screen_manager)
-  end, {
-    description = "run screen manager",
-    group = "launcher",
-  }),
-
   awful.key({ modkey, "Shift" }, "g", function()
     awful.spawn(apps.browser_normal)
   end, {
@@ -243,6 +236,20 @@ keys.globalkeys = gears.table.join(
     awful.spawn(apps.translator)
   end, {
     description = "run translator",
+    group = "launcher",
+  }),
+
+  awful.key({ modkey, "Ctrl" }, "F8", function()
+    awful.spawn(apps.autorandr)
+  end, {
+    description = "run autorandr",
+    group = "launcher",
+  }),
+
+  awful.key({ modkey, "Ctrl" }, "F10", function()
+    awful.spawn(apps.screen_manager)
+  end, {
+    description = "run screen manager",
     group = "launcher",
   }),
 

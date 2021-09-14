@@ -9,6 +9,7 @@ return {
   launcher = "rofi -show combi  -display-combi '  '",
   -- dlauncher = "rofi -normal-window -modi drun -show drun -theme " .. theme_config_dir .. "rofi.rasi",
   screen_manager =  "bash -c ~/.config/rofi/rofi-scripts/monitor_layout.sh",
+  autorandr = "zsh -c 'autorandr -c default'",
   quickmenu = "rofi -show drun -theme dmenu ",
   dlauncher = "rofi -no-lazy-grab -show drun -modi drun -theme sidetab-adapta",
   power_manager = os.getenv("HOME") .. "/.config/rofi/powermenu/powermenu.sh",
