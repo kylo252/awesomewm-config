@@ -10,3 +10,6 @@
 [submodule "sharedtags"]
 	path = sharedtags
 	url = https://github.com/Drauthius/awesome-sharedtags
+[submodule "cyclefocus"]
+	path = cyclefocus
+	url = https://github.com/blueyed/awesome-cyclefocus

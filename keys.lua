@@ -35,7 +35,7 @@ local altkey = "Mod1"
 
 local vi_focus = false -- vi-like client focus https://github.com/lcpz/awesome-copycats/issues/275
 local cycle_prev = true -- cycle with only the previously focused client or all https://github.com/lcpz/awesome-copycats/issues/274
-
+local cyclefocus = require('cyclefocus')
 -- define module table
 local keys = {}
 
@@ -215,12 +215,6 @@ keys.globalkeys = gears.table.join(
 		group = "launcher",
 	}),
 
-	awful.key({ modkey }, "Tab", function()
-		awful.spawn(apps.windowrunner)
-	end, {
-		description = "rofi windowcd launcher",
-		group = "launcher",
-	}),
 
 	awful.key({ modkey }, "r", function()
 		awful.spawn(apps.quickmenu)
@@ -362,20 +356,37 @@ keys.globalkeys = gears.table.join(
 		group = "focus",
 	}),
 
-	-- Focus client by index (cycle through clients)
+  -- modkey+Tab: cycle through all clients.
+  awful.key({ modkey }, "Tab", function(c)
+      cyclefocus.cycle({modifier="Super_L"})
+  end),
+  -- modkey+Shift+Tab: backwards
+  awful.key({ modkey, "Shift" }, "Tab", function(c)
+      cyclefocus.cycle({modifier="Super_L"})
+  end),
+
 	awful.key({ altkey }, "Tab", function()
-		awful.client.focus.byidx(1)
+		awful.spawn(apps.windowrunner)
 	end, {
-		description = "focus next by index",
-		group = "focus",
+		description = "rofi windowcd launcher",
+		group = "launcher",
 	}),
 
-	awful.key({ altkey, "Shift" }, "Tab", function()
-		awful.client.focus.byidx(-1)
-	end, {
-		description = "focus previous by index",
-		group = "focus",
-	}),
+	-- Focus client by index (cycle through clients)
+
+	-- awful.key({ modkey }, "Tab", function()
+	-- 	awful.client.focus.byidx(1)
+	-- end, {
+	-- 	description = "focus next by index",
+	-- 	group = "focus",
+	-- }),
+
+	-- awful.key({ modkey, "Shift" }, "Tab", function()
+	-- 	awful.client.focus.byidx(-1)
+	-- end, {
+	-- 	description = "focus previous by index",
+	-- 	group = "focus",
+	-- }),
 
 	-- Focus screen by index (cycle through screens)
 	awful.key({ modkey, "Control" }, "t", function()
