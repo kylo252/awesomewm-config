@@ -9,18 +9,15 @@
 -- Initialization
 -- ===================================================================
 
-
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 
 -- define module table
 local theme = {}
 
-
 -- ===================================================================
 -- Theme Variables
 -- ===================================================================
-
 
 theme.name = "pastel"
 
@@ -84,11 +81,9 @@ theme.systray_icon_spacing = dpi(5)
 -- Titlebars
 theme.titlebars_enabled = false
 
-
 -- ===================================================================
 -- Icons
 -- ===================================================================
-
 
 -- Define layout icons
 theme.layout_tile = "~/.config/awesome/icons/layouts/tiled.png"

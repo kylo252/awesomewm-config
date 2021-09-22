@@ -11,20 +11,20 @@
 -- Initialization
 -- ===================================================================
 
-local awful = require "awful"
-local gears = require "gears"
-local naughty = require "naughty"
-local beautiful = require "beautiful"
+local awful = require("awful")
+local gears = require("gears")
+local naughty = require("naughty")
+local beautiful = require("beautiful")
 local dpi = beautiful.xresources.apply_dpi
-local kbdcfg = require "widgets.keyboards"
-local sharedtags = require "sharedtags"
-local apps = require "apps"
-local utils = require "utils"
-local tag_list = require "widgets.tag-list"
+local kbdcfg = require("widgets.keyboards")
+local sharedtags = require("sharedtags")
+local apps = require("apps")
+local utils = require("utils")
+local tag_list = require("widgets.tag-list")
 local tagnames = tag_list.names
 
-local hotkeys_popup = require "awful.hotkeys_popup"
-require "awful.hotkeys_popup.keys"
+local hotkeys_popup = require("awful.hotkeys_popup")
+require("awful.hotkeys_popup.keys")
 
 -- Define mod keys
 local modkey = "Mod4"
@@ -32,7 +32,7 @@ local altkey = "Mod1"
 
 -- local vi_focus = false -- vi-like client focus https://github.com/lcpz/awesome-copycats/issues/275
 -- local cycle_prev = true -- cycle with only the previously focused client or all https://github.com/lcpz/awesome-copycats/issues/274
-local cyclefocus = require "cyclefocus"
+local cyclefocus = require("cyclefocus")
 -- define module table
 local keys = {}
 
@@ -219,7 +219,7 @@ keys.globalkeys = gears.table.join(
   -- Quit Awesome
   awful.key({ modkey }, "F4", function()
     -- emit signal to show the exit screen
-    awesome.emit_signal "show_exit_screen"
+    awesome.emit_signal("show_exit_screen")
   end, {
     description = "toggle exit screen",
     group = "awesome",
@@ -273,28 +273,28 @@ keys.globalkeys = gears.table.join(
 
   -- Focus client by direction (arrow keys)
   awful.key({ modkey }, "Down", function()
-    awful.client.focus.bydirection "down"
+    awful.client.focus.bydirection("down")
     utils.raise_client()
   end, {
     description = "focus down",
     group = "focus",
   }),
   awful.key({ modkey }, "Up", function()
-    awful.client.focus.bydirection "up"
+    awful.client.focus.bydirection("up")
     utils.raise_client()
   end, {
     description = "focus up",
     group = "focus",
   }),
   awful.key({ modkey }, "Left", function()
-    awful.client.focus.bydirection "left"
+    awful.client.focus.bydirection("left")
     utils.raise_client()
   end, {
     description = "focus left",
     group = "focus",
   }),
   awful.key({ modkey }, "Right", function()
-    awful.client.focus.bydirection "right"
+    awful.client.focus.bydirection("right")
     utils.raise_client()
   end, {
     description = "focus right",
@@ -303,11 +303,11 @@ keys.globalkeys = gears.table.join(
 
   -- modkey+Tab: cycle through all clients.
   awful.key({ modkey }, "Tab", function(c)
-    cyclefocus.cycle { modifier = "Super_L" }
+    cyclefocus.cycle({ modifier = "Super_L" })
   end),
   -- modkey+Shift+Tab: backwards
   awful.key({ modkey, "Shift" }, "Tab", function(c)
-    cyclefocus.cycle { modifier = "Super_L" }
+    cyclefocus.cycle({ modifier = "Super_L" })
   end),
 
   awful.key({ altkey }, "Tab", function()
@@ -548,7 +548,7 @@ keys.clientkeys = gears.table.join(
   }),
   awful.key({}, "XF86PowerOff", function()
     -- emit signal to show the exit screen
-    awesome.emit_signal "show_exit_screen"
+    awesome.emit_signal("show_exit_screen")
   end, {
     description = "toggle exit screen",
     group = "hotkeys",
@@ -556,21 +556,21 @@ keys.clientkeys = gears.table.join(
   -- ALSA volume control
   awful.key({}, "XF86AudioRaiseVolume", function()
     awful.spawn("amixer -D pulse sset Master 5%+", false)
-    awesome.emit_signal "volume_change"
+    awesome.emit_signal("volume_change")
   end, {
     description = "volume up",
     group = "hotkeys",
   }),
   awful.key({}, "XF86AudioLowerVolume", function()
     awful.spawn("amixer -D pulse sset Master 5%-", false)
-    awesome.emit_signal "volume_change"
+    awesome.emit_signal("volume_change")
   end, {
     description = "volume down",
     group = "hotkeys",
   }),
   awful.key({}, "XF86AudioMute", function()
     awful.spawn("amixer -D pulse set Master 1+ toggle", false)
-    awesome.emit_signal "volume_change"
+    awesome.emit_signal("volume_change")
   end, {
     description = "toggle mute",
     group = "hotkeys",

@@ -24,7 +24,6 @@ local themes = {
 local theme = themes[1]
 local theme_config_dir = gears.filesystem.get_configuration_dir() .. "themes/" .. theme
 
-
 -- ===================================================================
 -- Initialization
 -- ===================================================================

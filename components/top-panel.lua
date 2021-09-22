@@ -1,5 +1,3 @@
-
-
 --      ████████╗ ██████╗ ██████╗     ██████╗  █████╗ ███╗   ██╗███████╗██╗
 --      ╚══██╔══╝██╔═══██╗██╔══██╗    ██╔══██╗██╔══██╗████╗  ██║██╔════╝██║
 --         ██║   ██║   ██║██████╔╝    ██████╔╝███████║██╔██╗ ██║█████╗  ██║
@@ -10,7 +8,6 @@
 -- ===================================================================
 -- Initialization
 -- ===================================================================
-
 
 local awful = require("awful")
 local beautiful = require("beautiful")
@@ -25,64 +22,59 @@ local tag_list = require("widgets.tag-list")
 -- define module table
 local top_panel = {}
 
-
 -- ===================================================================
 -- Bar Creation
 -- ===================================================================
 
-local spr  = wibox.widget.textbox('   ')
+local spr = wibox.widget.textbox("   ")
 
 top_panel.create = function(s)
+  local panel = awful.wibar({
+    screen = s,
+    position = "top",
+    ontop = true,
+    -- height = beautiful.top_panel_height,
+    height = dpi(30),
+    width = s.geometry.width,
+  })
 
-   local panel = awful.wibar({
-      screen = s,
-      position = "top",
-      ontop = true,
-          -- height = beautiful.top_panel_height,
-      height = dpi(30),
-      width = s.geometry.width,
-   })
+  panel:setup({
+    expand = "none",
+    layout = wibox.layout.align.horizontal,
+    {
+      layout = wibox.layout.fixed.horizontal,
+      spr,
+      tag_list.create(s),
+      spr,
+      task_list.create(s),
+      spr,
+    },
+    require("widgets.calendar").create(s),
+    {
+      layout = wibox.layout.fixed.horizontal,
+      wibox.layout.margin(wibox.widget.systray(), dpi(5), dpi(5), dpi(5), dpi(5)),
+      require("widgets.keyboards"),
+      require("widgets.bluetooth"),
+      require("widgets.network")(),
+      require("widgets.battery"),
+      wibox.layout.margin(require("widgets.layout-box"), dpi(5), dpi(5), dpi(5), dpi(5)),
+    },
+  })
 
-   panel:setup {
-      expand = "none",
-      layout = wibox.layout.align.horizontal,
-      {
-        layout = wibox.layout.fixed.horizontal,
-        spr,
-        tag_list.create(s),
-        spr,
-        task_list.create(s),
-        spr,
-      },
-      require("widgets.calendar").create(s),
-      {
-         layout = wibox.layout.fixed.horizontal,
-         wibox.layout.margin(wibox.widget.systray(), dpi(5), dpi(5), dpi(5), dpi(5)),
-         require("widgets.keyboards"),
-         require("widgets.bluetooth"),
-         require("widgets.network")(),
-         require("widgets.battery"),
-         wibox.layout.margin(require("widgets.layout-box"), dpi(5), dpi(5), dpi(5), dpi(5))
-      }
-   }
+  -- ===================================================================
+  -- Functionality
+  -- ===================================================================
 
+  -- hide panel when client is fullscreen
+  local function change_panel_visibility(client)
+    if client.screen == s then
+      panel.ontop = not client.fullscreen
+    end
+  end
 
-   -- ===================================================================
-   -- Functionality
-   -- ===================================================================
-
-
-   -- hide panel when client is fullscreen
-   local function change_panel_visibility(client)
-      if client.screen == s then
-         panel.ontop = not client.fullscreen
-      end
-   end
-
-   -- connect panel visibility function to relevant signals
-   client.connect_signal("property::fullscreen", change_panel_visibility)
-   client.connect_signal("focus", change_panel_visibility)
-
+  -- connect panel visibility function to relevant signals
+  client.connect_signal("property::fullscreen", change_panel_visibility)
+  client.connect_signal("focus", change_panel_visibility)
 end
 
 return top_panel

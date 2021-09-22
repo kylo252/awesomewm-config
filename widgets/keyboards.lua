@@ -12,7 +12,6 @@ local function set_indicator(mode, layout)
     -- indicator = layout
     kbdcfg.widget:set_text(indicator)
   else
-
     kbdcfg.widget.image = indicator
   end
 end
