@@ -19,7 +19,7 @@ local dpi = beautiful.xresources.apply_dpi
 local kbdcfg = require "widgets.keyboards"
 local sharedtags = require "sharedtags"
 local apps = require "apps"
-
+local utils = require "utils"
 local tag_list = require "widgets.tag-list"
 local tagnames = tag_list.names
 
@@ -35,81 +35,6 @@ local altkey = "Mod1"
 local cyclefocus = require "cyclefocus"
 -- define module table
 local keys = {}
-
--- ===================================================================
--- Movement Functions (Called by some keybinds)
--- ===================================================================
-
--- Move given client to given direction
-local function move_client(c, direction)
-  -- If client is floating, move to edge
-  if c.floating or (awful.layout.get(mouse.screen) == awful.layout.suit.floating) then
-    local workarea = awful.screen.focused().workarea
-    if direction == "up" then
-      c:geometry { nil, y = workarea.y + beautiful.useless_gap * 2, nil, nil }
-    elseif direction == "down" then
-      c:geometry {
-        nil,
-        y = workarea.height + workarea.y - c:geometry().height - beautiful.useless_gap * 2 - beautiful.border_width * 2,
-        nil,
-        nil,
-      }
-    elseif direction == "left" then
-      c:geometry { x = workarea.x + beautiful.useless_gap * 2, nil, nil, nil }
-    elseif direction == "right" then
-      c:geometry {
-        x = workarea.width + workarea.x - c:geometry().width - beautiful.useless_gap * 2 - beautiful.border_width * 2,
-        nil,
-        nil,
-        nil,
-      }
-    end
-    -- Otherwise swap the client in the tiled layout
-  elseif awful.layout.get(mouse.screen) == awful.layout.suit.max then
-    if direction == "up" or direction == "left" then
-      awful.client.swap.byidx(-1, c)
-    elseif direction == "down" or direction == "right" then
-      awful.client.swap.byidx(1, c)
-    end
-  else
-    awful.client.swap.bydirection(direction, c, nil)
-  end
-end
-
--- Resize client in given direction
-local floating_resize_amount = dpi(20)
-local tiling_resize_factor = 0.05
-
-local function resize_client(c, direction)
-  if awful.layout.get(mouse.screen) == awful.layout.suit.floating or (c and c.floating) then
-    if direction == "up" then
-      c:relative_move(0, 0, 0, -floating_resize_amount)
-    elseif direction == "down" then
-      c:relative_move(0, 0, 0, floating_resize_amount)
-    elseif direction == "left" then
-      c:relative_move(0, 0, -floating_resize_amount, 0)
-    elseif direction == "right" then
-      c:relative_move(0, 0, floating_resize_amount, 0)
-    end
-  else
-    if direction == "up" then
-      awful.client.incwfact(-tiling_resize_factor)
-    elseif direction == "down" then
-      awful.client.incwfact(tiling_resize_factor)
-    elseif direction == "left" then
-      awful.tag.incmwfact(-tiling_resize_factor)
-    elseif direction == "right" then
-      awful.tag.incmwfact(tiling_resize_factor)
-    end
-  end
-end
-
--- raise focused client
-local function raise_client()
-  if client.focus then
-    client.focus:raise()
-  end
-end
 
 -- ===================================================================
 -- Mouse bindings
@@ -212,14 +137,16 @@ keys.globalkeys = gears.table.join(
   }),
 
   awful.key({ modkey }, "g", function()
-    awful.spawn(apps.browser)
+    awful.spawn(apps.edge)
+    -- awful.spawn(apps.browser)
   end, {
     description = "run browser",
     group = "launcher",
   }),
 
   awful.key({ modkey, "Shift" }, "g", function()
-    awful.spawn(apps.browser_normal)
+    awful.spawn(apps.edge_normal)
+    -- awful.spawn(apps.browser_normal)
   end, {
     description = "run browser (normal)",
     group = "launcher",
@@ -240,9 +167,18 @@ keys.globalkeys = gears.table.join(
   }),
 
   awful.key({ modkey, "Ctrl" }, "F8", function()
-    awful.spawn(apps.autorandr)
+    local default_profile = "zsh -c 'autorandr -c default'"
+    awful.spawn(default_profile)
   end, {
-    description = "run autorandr",
+    description = "switch to autorandr default profile",
+    group = "launcher",
+  }),
+
+  awful.key({ modkey, "Ctrl" }, "F9", function()
+    local dual_profile = "zsh -c 'autorandr -c dual'"
+    awful.spawn(dual_profile)
+  end, {
+    description = "switch to autorandr dual profile",
     group = "launcher",
   }),
 
@@ -338,28 +274,28 @@ keys.globalkeys = gears.table.join(
   -- Focus client by direction (arrow keys)
   awful.key({ modkey }, "Down", function()
     awful.client.focus.bydirection "down"
-    raise_client()
+    utils.raise_client()
   end, {
     description = "focus down",
     group = "focus",
   }),
   awful.key({ modkey }, "Up", function()
     awful.client.focus.bydirection "up"
-    raise_client()
+    utils.raise_client()
   end, {
     description = "focus up",
     group = "focus",
   }),
   awful.key({ modkey }, "Left", function()
     awful.client.focus.bydirection "left"
-    raise_client()
+    utils.raise_client()
   end, {
     description = "focus left",
     group = "focus",
   }),
   awful.key({ modkey }, "Right", function()
     awful.client.focus.bydirection "right"
-    raise_client()
+    utils.raise_client()
   end, {
     description = "focus right",
     group = "focus",
@@ -487,42 +423,42 @@ keys.clientkeys = gears.table.join(
 
   -- Client resizing
   awful.key({ modkey, "Control" }, "Down", function(c)
-    resize_client(client.focus, "down")
+    utils.resize_client(client.focus, "down")
   end),
   awful.key({ modkey, "Control" }, "Up", function(c)
-    resize_client(client.focus, "up")
+    utils.resize_client(client.focus, "up")
   end),
   awful.key({ modkey, "Control" }, "Left", function(c)
-    resize_client(client.focus, "left")
+    utils.resize_client(client.focus, "left")
   end),
   awful.key({ modkey, "Control" }, "Right", function(c)
-    resize_client(client.focus, "right")
+    utils.resize_client(client.focus, "right")
   end),
 
   -- Move to edge or swap by direction
   awful.key({ modkey, "Shift" }, "Down", function(c)
-    move_client(c, "down")
+    utils.move_client(c, "down")
   end),
   awful.key({ modkey, "Shift" }, "Up", function(c)
-    move_client(c, "up")
+    utils.move_client(c, "up")
   end),
   awful.key({ modkey, "Shift" }, "Left", function(c)
-    move_client(c, "left")
+    utils.move_client(c, "left")
   end),
   awful.key({ modkey, "Shift" }, "Right", function(c)
-    move_client(c, "right")
+    utils.move_client(c, "right")
   end),
   awful.key({ modkey, "Shift" }, "j", function(c)
-    move_client(c, "down")
+    utils.move_client(c, "down")
   end),
   awful.key({ modkey, "Shift" }, "k", function(c)
-    move_client(c, "up")
+    utils.move_client(c, "up")
   end),
   awful.key({ modkey, "Shift" }, "h", function(c)
-    move_client(c, "left")
+    utils.move_client(c, "left")
   end),
   awful.key({ modkey, "Shift" }, "l", function(c)
-    move_client(c, "right")
+    utils.move_client(c, "right")
   end),
 
   -- toggle fullscreen

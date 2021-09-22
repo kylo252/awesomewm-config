@@ -15,9 +15,12 @@ local gears = require('gears')
 local naughty = require('naughty') 
 local dpi = require('beautiful').xresources.apply_dpi
 local clickable_container = require('widgets.clickable-container')
+local apps = require('apps')
 
-local config_dir = gears.filesystem.get_configuration_dir()
-local widget_icon_dir = config_dir .. 'icons/network/'
+-- define wireless and ethernet interface names for the network widget
+-- use `ip link` command to determine these
+local network_interfaces = { wlan = "wlp58s0", lan = "enp0s31f6" }
+local network_icon_dir = require('icons')["network"]
 
 local network_mode = nil
 
@@ -33,7 +36,7 @@ local return_button = function()
 	local widget = wibox.widget {
 		{
 			id = 'icon',
-			image = widget_icon_dir .. 'loading.svg',
+			image = network_icon_dir .. 'loading.svg',
 			widget = wibox.widget.imagebox,
 			resize = true
 		},
@@ -122,7 +125,7 @@ local return_button = function()
 			local message = 'You are now connected to <b>\"' .. essid .. '\"</b>'
 			local title = 'Connection Established'
 			local app_name = 'System Notification'
-			local icon = widget_icon_dir .. 'connected_notification.svg'
+			local icon = network_icon_dir .. 'connected_notification.svg'
 			network_notify(message, title, app_name, icon)
 		end
 
@@ -170,7 +173,7 @@ local return_button = function()
 						widget_icon_name = widget_icon_name .. '-' .. tostring(strength) .. '-alert'
 						update_wireless_data(wifi_strength_rounded, false)
 					end
-					widget.icon:set_image(widget_icon_dir .. widget_icon_name .. '.svg')
+					widget.icon:set_image(network_icon_dir .. widget_icon_name .. '.svg')
 				end
 			)
 		end
@@ -204,7 +207,7 @@ local return_button = function()
 			local message = 'Connected to internet with <b>\"' .. network_interfaces.lan .. '\"</b>'
 			local title = 'Connection Established'
 			local app_name = 'System Notification'
-			local icon = widget_icon_dir .. 'wired.svg'
+			local icon = network_icon_dir .. 'wired.svg'
 			network_notify(message, title, app_name, icon)
 		end
 
@@ -229,7 +232,7 @@ local return_button = function()
 					end
 					update_reconnect_startup(false)
 				end
-				widget.icon:set_image(widget_icon_dir .. widget_icon_name .. '.svg')
+				widget.icon:set_image(network_icon_dir .. widget_icon_name .. '.svg')
 			end
 		)
 	end
@@ -240,7 +243,7 @@ local return_button = function()
 			local message = 'Wi-Fi network has been disconnected'
 			local title = 'Connection Disconnected'
 			local app_name = 'System Notification'
-			local icon = widget_icon_dir .. 'wifi-strength-off.svg'
+			local icon = network_icon_dir .. 'wifi-strength-off.svg'
 			network_notify(message, title, app_name, icon)
 		end
 
@@ -248,7 +251,7 @@ local return_button = function()
 			local message = 'Ethernet network has been disconnected'
 			local title = 'Connection Disconnected'
 			local app_name = 'System Notification'
-			local icon = widget_icon_dir .. 'wired-off.svg'
+			local icon = network_icon_dir .. 'wired-off.svg'
 			network_notify(message, title, app_name, icon)
 		end
 
@@ -268,7 +271,7 @@ local return_button = function()
 			end
 		end
 		update_tooltip('Network is currently disconnected')
-		widget.icon:set_image(widget_icon_dir .. widget_icon_name .. '.svg')
+		widget.icon:set_image(network_icon_dir .. widget_icon_name .. '.svg')
 	end
 
 	local check_network_mode = function()

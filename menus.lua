@@ -8,15 +8,7 @@ local awful         = require("awful")
 
 local awesome_menus = {}
 
-local apps = {
-    terminal = "kitty",
-    browser = "ug-chromium",
-    edge = "microsoft-edge",
-    teams = "teams",
-    launcher = "rofi -show combi",
-    quickmenue = "rofi -show run -theme dmenu ",
-    filemanager = "pcmanfm"
-}
+local apps = require("apps")
 
 awesome_menus.drop = {
    { "Hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },

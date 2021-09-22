@@ -97,6 +97,10 @@ function rules.create(clientkeys, clientbuttons)
 			properties = { floating = false },
 		},
 		{
+			rule_any = { class = {  "Microsoft-edge-beta" } },
+			properties = { floating = false },
+		},
+		{
 			rule_any = { class = { "Microsoft Teams - Preview" } },
 			properties = { tag = tagnames[5], floating = false },
 		},
