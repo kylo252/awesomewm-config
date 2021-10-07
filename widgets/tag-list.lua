@@ -38,7 +38,7 @@ tag_list.names = sharedtags({
   { name = "", layout = awful.layout.suit.tile },
   { name = "", layout = awful.layout.suit.tile },
   { name = "", layout = awful.layout.suit.tile },
-  { name = "", screen = 2, layout = awful.layout.suit.tile },
+  { name = "", layout = awful.layout.suit.tile },
 })
 
 -- create the tag list widget

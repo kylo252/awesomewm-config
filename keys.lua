@@ -14,8 +14,6 @@
 local awful = require("awful")
 local gears = require("gears")
 local naughty = require("naughty")
-local beautiful = require("beautiful")
-local dpi = beautiful.xresources.apply_dpi
 local kbdcfg = require("widgets.keyboards")
 local sharedtags = require("sharedtags")
 local apps = require("apps")
@@ -101,7 +99,7 @@ keys.globalkeys = gears.table.join(
     group = "launcher",
   }),
 
-  awful.key({ modkey }, "Return", function()
+  awful.key({ modkey, "Control" }, "Return", function()
     awful.spawn(apps.terminal)
   end, {
     description = "open a terminal",
@@ -243,6 +241,20 @@ keys.globalkeys = gears.table.join(
     group = "awesome",
   }),
 
+  awful.key({ modkey, altkey }, "h", function()
+    awful.tag.viewprev()
+  end, {
+    description = "view  previous",
+    group = "awesome",
+  }),
+
+  awful.key({ modkey, altkey }, "l", function()
+    awful.tag.viewnext()
+  end, {
+    description = "view  next",
+    group = "awesome",
+  }),
+
   -- X screen locker
   awful.key({ altkey, "control" }, "l", function()
     os.execute(scrlocker)
@@ -259,7 +271,7 @@ keys.globalkeys = gears.table.join(
     group = "awesome",
   }),
 
-  -- x change_laoyout
+  -- x change keyboard layout
   awful.key({ "Shift" }, "Shift_R", function()
     kbdcfg.switch()
   end, {
@@ -302,36 +314,36 @@ keys.globalkeys = gears.table.join(
   }),
 
   -- modkey+Tab: cycle through all clients.
-  awful.key({ modkey }, "Tab", function(c)
+  awful.key({ modkey }, "Tab", function()
     cyclefocus.cycle({ modifier = "Super_L" })
   end),
   -- modkey+Shift+Tab: backwards
-  awful.key({ modkey, "Shift" }, "Tab", function(c)
+  awful.key({ modkey, "Shift" }, "Tab", function()
     cyclefocus.cycle({ modifier = "Super_L" })
   end),
 
-  awful.key({ altkey }, "Tab", function()
-    awful.spawn(apps.windowrunner)
-  end, {
-    description = "rofi windowcd launcher",
-    group = "launcher",
-  }),
+  -- awful.key({ altkey }, "Tab", function()
+  --   awful.spawn(apps.windowrunner)
+  -- end, {
+  --   description = "rofi windowcd launcher",
+  --   group = "launcher",
+  -- }),
 
   -- Focus client by index (cycle through clients)
 
-  -- awful.key({ modkey }, "Tab", function()
-  -- 	awful.client.focus.byidx(1)
-  -- end, {
-  -- 	description = "focus next by index",
-  -- 	group = "focus",
-  -- }),
+  awful.key({ altkey }, "Tab", function()
+    awful.client.focus.byidx(1)
+  end, {
+    description = "focus next by index",
+    group = "focus",
+  }),
 
-  -- awful.key({ modkey, "Shift" }, "Tab", function()
-  -- 	awful.client.focus.byidx(-1)
-  -- end, {
-  -- 	description = "focus previous by index",
-  -- 	group = "focus",
-  -- }),
+  awful.key({altkey, "Shift" }, "Tab", function()
+    awful.client.focus.byidx(-1)
+  end, {
+    description = "focus previous by index",
+    group = "focus",
+  }),
 
   -- Focus screen by index (cycle through screens)
   awful.key({ modkey, "Control" }, "t", function()
@@ -386,18 +398,6 @@ keys.globalkeys = gears.table.join(
     group = "layout",
   }),
 
-  -- On-the-fly useless gaps change
-  -- awful.key({ altkey, "Control" }, "+", function () lain.util.useless_gaps_resize(1) end,
-  --     {description = "increment useless gaps", group = "layout"}),
-  -- awful.key({ altkey, "Control" }, "-", function () lain.util.useless_gaps_resize(-1) end,
-  --     {description = "decrement useless gaps", group = "layout"}),
-  awful.key({ altkey, "Control" }, "m", function()
-    xrandr.xrandr()
-  end, {
-    description = "change monitor layout",
-    group = "layout",
-  }),
-
   -- select next layout
   awful.key({ altkey }, "space", function()
     awful.layout.inc(1)
@@ -423,16 +423,28 @@ keys.clientkeys = gears.table.join(
 
   -- Client resizing
   awful.key({ modkey, "Control" }, "Down", function(c)
-    utils.resize_client(client.focus, "down")
+    utils.resize_client(c.focus, "down")
   end),
   awful.key({ modkey, "Control" }, "Up", function(c)
-    utils.resize_client(client.focus, "up")
+    utils.resize_client(c.focus, "up")
   end),
   awful.key({ modkey, "Control" }, "Left", function(c)
-    utils.resize_client(client.focus, "left")
+    utils.resize_client(c.focus, "left")
   end),
   awful.key({ modkey, "Control" }, "Right", function(c)
-    utils.resize_client(client.focus, "right")
+    utils.resize_client(c.focus, "right")
+  end),
+  awful.key({ modkey, "Control" }, "j", function(c)
+    utils.resize_client(c.focus, "down")
+  end),
+  awful.key({ modkey, "Control" }, "k", function(c)
+    utils.resize_client(c.focus, "up")
+  end),
+  awful.key({ modkey, "Control" }, "h", function(c)
+    utils.resize_client(c.focus, "left")
+  end),
+  awful.key({ modkey, "Control" }, "l", function(c)
+    utils.resize_client(c.focus, "right")
   end),
 
   -- Move to edge or swap by direction

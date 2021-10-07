@@ -1,6 +1,8 @@
 local M = {}
 local awful = require("awful")
 local gears = require("gears")
+local beautiful = require("beautiful")
+local dpi = beautiful.xresources.apply_dpi
 
 -- ===================================================================
 -- Movement Functions (Called by some keybinds)
