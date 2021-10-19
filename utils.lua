@@ -71,6 +71,13 @@ function M.resize_client(c, direction)
   end
 end
 
+-- raise focused client
+function M.raise_client()
+  if client.focus then
+    client.focus:raise()
+  end
+end
+
 function M.run_once(cmd)
   local findme = cmd
   local firstspace = cmd:find(" ")

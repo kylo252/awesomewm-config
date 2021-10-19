@@ -27,7 +27,6 @@ return {
   filemanager = "pcmanfm",
   screenshot = "flameshot gui",
   scrot = "~/.local/bin/scrot_launcher",
-  screen_lock = "slock",
 
   one_shot = { -- List of apps to run on start-up
     "picom --experimental-backends",
