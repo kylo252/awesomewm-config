@@ -53,7 +53,7 @@ keys.clientbuttons = gears.table.join(
 
   -- Raise client
   awful.button({}, 1, function(c)
-    client.focus = c
+    awful.client.focus = c
     c:raise()
   end),
 
@@ -199,7 +199,7 @@ keys.globalkeys = gears.table.join(
   -- =========================================
 
   -- Show/hide wibox
-  awful.key({ modkey }, "b", function()
+  awful.key({ modkey }, "b", function(screen)
     for s in screen do
       s.mywibox.visible = not s.mywibox.visible
       if s.mybottomwibox then
@@ -251,13 +251,13 @@ keys.globalkeys = gears.table.join(
   awful.key({ modkey, altkey }, "l", function()
     awful.tag.viewnext()
   end, {
-    description = "view  next",
+    description = "view next",
     group = "awesome",
   }),
 
   -- X screen locker
   awful.key({ altkey, "control" }, "l", function()
-    os.execute(scrlocker)
+    os.execute(apps.screen_lock)
   end, {
     description = "lock screen",
     group = "awesome",
@@ -284,30 +284,30 @@ keys.globalkeys = gears.table.join(
   -- =========================================
 
   -- Focus client by direction (arrow keys)
-  awful.key({ modkey }, "Down", function()
-    awful.client.focus.bydirection("down")
-    utils.raise_client()
+  awful.key({ modkey }, "Down", function(c)
+    c.focus.bydirection("down")
+    c:raise()
   end, {
     description = "focus down",
     group = "focus",
   }),
-  awful.key({ modkey }, "Up", function()
-    awful.client.focus.bydirection("up")
-    utils.raise_client()
+  awful.key({ modkey }, "Up", function(c)
+    c.focus.bydirection("up")
+    c:raise()
   end, {
     description = "focus up",
     group = "focus",
   }),
-  awful.key({ modkey }, "Left", function()
-    awful.client.focus.bydirection("left")
-    utils.raise_client()
+  awful.key({ modkey }, "Left", function(c)
+    c.focus.bydirection("left")
+    c:raise()
   end, {
     description = "focus left",
     group = "focus",
   }),
-  awful.key({ modkey }, "Right", function()
-    awful.client.focus.bydirection("right")
-    utils.raise_client()
+  awful.key({ modkey }, "Right", function(c)
+    c.focus.bydirection("right")
+    c:raise()
   end, {
     description = "focus right",
     group = "focus",
@@ -331,15 +331,15 @@ keys.globalkeys = gears.table.join(
 
   -- Focus client by index (cycle through clients)
 
-  awful.key({ altkey }, "Tab", function()
-    awful.client.focus.byidx(1)
+  awful.key({ altkey }, "Tab", function(c)
+    c.focus.byidx(1)
   end, {
     description = "focus next by index",
     group = "focus",
   }),
 
-  awful.key({altkey, "Shift" }, "Tab", function()
-    awful.client.focus.byidx(-1)
+  awful.key({altkey, "Shift" }, "Tab", function(c)
+    c.focus.byidx(-1)
   end, {
     description = "focus previous by index",
     group = "focus",
@@ -485,7 +485,7 @@ keys.clientkeys = gears.table.join(
     local c = awful.client.restore()
     -- Focus restored client
     if c then
-      client.focus = c
+      awful.client.focus = c
       c:raise()
     end
   end, {
@@ -507,6 +507,9 @@ keys.clientkeys = gears.table.join(
     group = "client",
   }),
   awful.key({ altkey }, "Return", function(c)
+    if c.floating then
+      c.floating = false
+    end
     c.maximized = not c.maximized
     c:raise()
   end, {
@@ -536,7 +539,9 @@ keys.clientkeys = gears.table.join(
     group = "client",
   }),
 
-  awful.key({ modkey }, "f", awful.client.floating.toggle, { description = "toggle floating", group = "client" }),
+  awful.key({ modkey }, "f", function (c)
+    c.floating = not c.floating
+  end, { description = "toggle floating", group = "client" }),
 
   -- =========================================
   -- FUNCTION KEYS
@@ -638,7 +643,7 @@ for i = 1, 9 do
     }),
 
     -- Move client to tag.
-    awful.key({ modkey, "Shift" }, "#" .. i + 9, function()
+    awful.key({ modkey, "Shift" }, "#" .. i + 9, function(client)
       if client.focus then
         local tag = tagnames[i]
         if tag then
@@ -650,7 +655,7 @@ for i = 1, 9 do
       group = "tag",
     }),
     -- Move client to shared.
-    awful.key({ modkey, "Shift" }, "s", function()
+    awful.key({ modkey, "Shift" }, "s", function(client)
       if client.focus then
         local tag = tagnames[8]
         if tag then
@@ -662,7 +667,7 @@ for i = 1, 9 do
       group = "client",
     }),
     -- Toggle tag on focused client.
-    awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9, function()
+    awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9, function(client)
       if client.focus then
         local tag = tagnames[i]
         if tag then
