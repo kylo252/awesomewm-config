@@ -40,7 +40,7 @@ function rules.create(clientkeys, clientbuttons)
         keys = clientkeys,
         buttons = clientbuttons,
         screen = awful.screen.preferred,
-        placement = awful.placement.centerd,
+        placement = awful.placement.centered,
         titlebars_enabled = true,
         fullscreen = false,
         floating = true,
@@ -90,7 +90,7 @@ function rules.create(clientkeys, clientbuttons)
     },
     {
       rule_any = { class = { "Code" } },
-      properties = { tag = tagnames[3], floating = true, placement = awful.placement.centered },
+      properties = { tag = tagnames[3], floating = true },
     },
     {
       rule_any = { class = { "Chromium-browser" } },
@@ -106,7 +106,7 @@ function rules.create(clientkeys, clientbuttons)
     },
     {
       rule_any = { class = { "Evolution" } },
-      properties = { tag = tagnames[6], floating = false },
+      properties = { tag = tagnames[6], floating = true },
     },
     {
       rule_any = { name = { "rofi" } },

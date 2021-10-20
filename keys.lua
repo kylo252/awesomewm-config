@@ -99,7 +99,7 @@ keys.globalkeys = gears.table.join(
     group = "launcher",
   }),
 
-  awful.key({ modkey, "Control" }, "Return", function()
+  awful.key({ modkey }, "Return", function()
     awful.spawn(apps.terminal)
   end, {
     description = "open a terminal",
@@ -173,10 +173,10 @@ keys.globalkeys = gears.table.join(
   }),
 
   awful.key({ modkey, "Ctrl" }, "F9", function()
-    local dual_profile = "zsh -c 'autorandr -c dual'"
-    awful.spawn(dual_profile)
+    local projector_profile = "zsh -c 'autorandr -c projector'"
+    awful.spawn(projector_profile)
   end, {
-    description = "switch to autorandr dual profile",
+    description = "switch to autorandr projector profile",
     group = "launcher",
   }),
 
@@ -338,7 +338,7 @@ keys.globalkeys = gears.table.join(
     group = "focus",
   }),
 
-  awful.key({altkey, "Shift" }, "Tab", function()
+  awful.key({ altkey, "Shift" }, "Tab", function()
     awful.client.focus.byidx(-1)
   end, {
     description = "focus previous by index",
