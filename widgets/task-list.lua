@@ -173,6 +173,9 @@ local tasklist_buttons = awful.util.table.join(
   awful.button({}, 2, function(c)
     c.kill(c)
   end),
+  awful.button({}, 3, function()
+      awful.menu.client_list({ theme = { width = 250 } })
+  end),
   awful.button({}, 4, function()
     awful.client.focus.byidx(1)
   end),

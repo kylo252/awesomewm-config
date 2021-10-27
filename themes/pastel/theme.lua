@@ -81,6 +81,16 @@ theme.systray_icon_spacing = dpi(5)
 -- Titlebars
 theme.titlebars_enabled = false
 
+theme.menu_font = theme.font
+theme.menu_height = dpi(25)
+theme.menu_width = dpi(150)
+theme.menu_border_color = theme.bg_normal
+theme.menu_border_width = dpi(10)
+theme.menu_fg_focus  = theme.fg_focus
+theme.menu_bg_focus  = theme.bg_focus
+theme.menu_fg_normal = theme.fg_normal
+theme.menu_bg_normal = theme.bg_normal
+
 -- ===================================================================
 -- Icons
 -- ===================================================================

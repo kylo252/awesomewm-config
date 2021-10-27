@@ -1,9 +1,8 @@
 -- {{{ Menu
-
 local freedesktop = require("freedesktop")
 local beautiful = require("beautiful")
-local gears = require("gears")
 local awful = require("awful")
+local hotkeys_popup = require("awful.hotkeys_popup")
 require("awful.autofocus")
 
 local awesome_menus = {}
@@ -39,16 +38,10 @@ awesome_menus.main = freedesktop.menu.build({
   },
 })
 
--- Extra mouse buttons
-root.buttons(gears.table.join(
-  awful.button({}, 3, function()
-    awesome_menus.main:toggle()
-  end)
-  -- awful.button({ }, 1, function () awesome_menus.main:hide() end) --this will be null if you actually select something
-))
-
 -- hide menu when mouse leaves it
--- awesome_menus.main.wibox:connect_signal("mouse::leave", function() awesome_menus.main:hide() end)
+awesome_menus.main.wibox:connect_signal("mouse::leave", function()
+  awesome_menus.main:hide()
+end)
 
 -- }}}
 return awesome_menus
