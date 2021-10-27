@@ -97,7 +97,7 @@ function rules.create(clientkeys, clientbuttons)
       properties = { floating = false },
     },
     {
-      rule_any = { class = { "Microsoft-edge-beta" } },
+      rule_any = { role = { "browser" } },
       properties = { floating = false },
     },
     {
