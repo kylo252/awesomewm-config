@@ -13,8 +13,8 @@ return {
     .. "/.nix-profile/bin/chromium --enable-features=WebUIDarkMode --force-dark-mode --enable-native-gpu-memory-buffers %U --incognito",
   browser_normal = os.getenv("HOME")
     .. "/.nix-profile/bin/chromium --enable-features=WebUIDarkMode --force-dark-mode --enable-native-gpu-memory-buffers %U",
-  edge = "microsoft-edge --incognito",
-  edge_normal = "microsoft-edge",
+  edge = "microsoft-edge",
+  brave = "brave-browser --incognito",
   teams = "teams",
   launcher = "rofi -show combi  -display-combi '  ' -theme " .. rofi_theme,
   -- dlauncher = "rofi -normal-window -modi drun -show drun -theme " .. theme_config_dir .. "rofi.rasi",
@@ -27,7 +27,6 @@ return {
   filemanager = "pcmanfm",
   screenshot = "flameshot gui",
   scrot = "~/.local/bin/scrot_launcher",
-
   one_shot = { -- List of apps to run on start-up
     "picom --experimental-backends",
     "setxkbmap -layout 'se,se' -variant 'hack,basic'",

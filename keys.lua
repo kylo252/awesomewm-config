@@ -121,7 +121,7 @@ keys.globalkeys = gears.table.join(
   }),
 
   awful.key({ modkey }, "g", function()
-    awful.spawn(apps.edge)
+    awful.spawn(apps.brave)
     -- awful.spawn(apps.browser)
   end, {
     description = "run browser",
@@ -129,7 +129,7 @@ keys.globalkeys = gears.table.join(
   }),
 
   awful.key({ modkey, "Shift" }, "g", function()
-    awful.spawn(apps.edge_normal)
+    awful.spawn(apps.edge)
     -- awful.spawn(apps.browser_normal)
   end, {
     description = "run browser (normal)",

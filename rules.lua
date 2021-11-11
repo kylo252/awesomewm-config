@@ -82,7 +82,7 @@ function rules.create(clientkeys, clientbuttons)
     },
     {
       rule_any = { class = { "Alacritty" } },
-      properties = { floating = false },
+      properties = { tag = tagnames[1], floating = false },
     },
     {
       rule_any = { class = { "Discord", "Element" } },
