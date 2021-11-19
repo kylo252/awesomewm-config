@@ -28,7 +28,6 @@ local theme_config_dir = gears.filesystem.get_configuration_dir() .. "themes/" .
 -- Initialization
 -- ===================================================================
 -- Initialize components
-require("components.volume-adjust")
 -- local slide_panel = require("components.slide-panel")
 require("components.notifications")
 local top_panel = require("components.top-panel")

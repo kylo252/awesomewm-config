@@ -56,6 +56,7 @@ top_panel.create = function(s)
       require("widgets.keyboards"),
       require("widgets.bluetooth"),
       require("widgets.network")(),
+      require("widgets.volume").get_indicator(),
       require("widgets.battery"),
       wibox.container.margin(require("widgets.layout-box"), dpi(5), dpi(5), dpi(5), dpi(5)),
     },
