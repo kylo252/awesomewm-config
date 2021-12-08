@@ -45,6 +45,7 @@ function rules.create(clientkeys, clientbuttons)
         fullscreen = false,
         floating = true,
         maximized = false,
+        switch_to_tags = false,
       },
     },
     -- Floating clients.
@@ -82,7 +83,7 @@ function rules.create(clientkeys, clientbuttons)
     },
     {
       rule_any = { class = { "Alacritty" } },
-      properties = { tag = tagnames[1], floating = false },
+      properties = { floating = false },
     },
     {
       rule_any = { class = { "Discord", "Element" } },
