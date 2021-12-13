@@ -241,14 +241,6 @@ keys.globalkeys = gears.table.join(
     group = "awesome",
   }),
 
-  -- X screen locker
-  awful.key({ altkey, "control" }, "l", function()
-    os.execute(scrlocker)
-  end, {
-    description = "lock screen",
-    group = "awesome",
-  }),
-
   -- Dropdown application
   awful.key({ modkey }, "z", function()
     awful.screen.focused().quake:toggle()
