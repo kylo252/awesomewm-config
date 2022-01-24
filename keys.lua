@@ -52,13 +52,17 @@ keys.desktopbuttons = gears.table.join(
 
 -- -- Mouse buttons on the client
 keys.clientbuttons = gears.table.join(
-
   -- Raise client
   awful.button({}, 1, function(c)
     if c ~= awful.client.focus then
       c:emit_signal("request::activate", "tasklist", { raise = true })
     end
-  end)
+  end),
+
+  -- Move and Resize Client
+  awful.button({ modkey }, 1, awful.mouse.client.raise),
+  awful.button({ modkey }, 1, awful.mouse.client.move),
+  awful.button({ modkey }, 3, awful.mouse.client.resize)
 )
 
 -- ===================================================================
