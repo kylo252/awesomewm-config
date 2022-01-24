@@ -110,6 +110,7 @@ screen.connect_signal("property::geometry", awesome.restart)
 -- ===================================================================
 -- Garbage collection (allows for lower memory consumption)
 -- ===================================================================
+awful.screen.set_auto_dpi_enabled(false)
 
 collectgarbage("setpause", 110)
 collectgarbage("setstepmul", 1000)

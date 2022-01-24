@@ -41,14 +41,12 @@ naughty.config.icon_dirs = {
 naughty.config.icon_formats = { "png", "svg" }
 
 -- Timeouts
-naughty.config.presets.low.timeout = 3
-naughty.config.presets.critical.timeout = 0
-
 naughty.config.presets.normal = {
   font = beautiful.title_font,
   fg = beautiful.fg_normal,
   bg = beautiful.bg_normal,
   position = "top_right",
+  timeout = 5,
 }
 
 naughty.config.presets.low = {
@@ -56,10 +54,11 @@ naughty.config.presets.low = {
   fg = beautiful.fg_normal,
   bg = beautiful.bg_normal,
   position = "top_right",
+  timeout = 5,
 }
 
 naughty.config.presets.critical = {
-  font = "SF Display Bold 10",
+  font = "SF Display Bold 14",
   fg = "#ffffff",
   bg = "#ff0000",
   position = "top_right",

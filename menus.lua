@@ -39,9 +39,9 @@ awesome_menus.main = freedesktop.menu.build({
 })
 
 -- hide menu when mouse leaves it
-awesome_menus.main.wibox:connect_signal("mouse::leave", function()
-  awesome_menus.main:hide()
-end)
+-- awesome_menus.main.wibox:connect_signal("mouse::leave", function()
+--   awesome_menus.main:hide()
+-- end)
 
 -- }}}
 return awesome_menus
