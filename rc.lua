@@ -107,8 +107,18 @@ require("awful.autofocus")
 -- Reload config when screen geometry changes
 screen.connect_signal("property::geometry", awesome.restart)
 
-client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
-client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+client.connect_signal("focus", function(c)
+  local clients = awful.client.tiled(c.screen)
+  if clients and #clients > 1 then
+    c.border_color = beautiful.border_focus
+  else
+    c.border_color = beautiful.border_normal
+  end
+end)
+
+client.connect_signal("unfocus", function(c)
+  c.border_color = beautiful.border_normal
+end)
 
 -- ===================================================================
 -- Garbage collection (allows for lower memory consumption)
