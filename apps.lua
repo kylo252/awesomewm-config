@@ -14,7 +14,7 @@ return {
   browser_normal = os.getenv("HOME")
     .. "/.nix-profile/bin/chromium --enable-features=WebUIDarkMode --force-dark-mode --enable-native-gpu-memory-buffers %U",
   edge = "microsoft-edge --use-gl=desktop --enable-features=VaapiVideoDecoder",
-  brave = "brave-browser --use-gl=desktop --enable-features=VaapiVideoDecoder --incognito",
+  brave = "brave-browser --use-gl=desktop --enable-features=VaapiVideoDecoder --incognito --disable-brave-extension",
   teams = "teams",
   launcher = "rofi -show combi  -display-combi '  ' -theme " .. rofi_theme,
   -- dlauncher = "rofi -normal-window -modi drun -show drun -theme " .. theme_config_dir .. "rofi.rasi",

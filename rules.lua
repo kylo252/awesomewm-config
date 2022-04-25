@@ -79,7 +79,7 @@ function rules.create(clientkeys, clientbuttons)
           "dialog",
         },
       },
-      properties = { floating = true },
+      properties = { floating = true, placement = awful.placement.no_offscreen },
     },
     {
       rule_any = { class = { "Alacritty" } },
@@ -87,15 +87,11 @@ function rules.create(clientkeys, clientbuttons)
     },
     {
       rule_any = { class = { "Discord", "Element" } },
-      properties = { tag = tagnames[8], floating = false, titlebars_enabled = true },
+      properties = { tag = tagnames[8], floating = false },
     },
     {
       rule_any = { class = { "Code" } },
       properties = { tag = tagnames[3], floating = true },
-    },
-    {
-      rule_any = { class = { "Chromium-browser" } },
-      properties = { floating = false },
     },
     {
       rule_any = { role = { "browser" } },
@@ -110,43 +106,10 @@ function rules.create(clientkeys, clientbuttons)
       properties = { tag = tagnames[6], floating = true },
     },
     {
-      rule_any = { name = { "rofi" } },
-      properties = { floating = true },
-    },
-
-    -- Visualizer
-    {
-      rule_any = { name = { "cava" } },
-      properties = {
-        floating = true,
-        maximized_horizontal = true,
-        sticky = true,
-        ontop = false,
-        skip_taskbar = true,
-        below = true,
-        focusable = false,
-        height = screen_height * 0.40,
-        opacity = 0.6,
-      },
-      callback = function(c)
-        decorations.hide(c)
-        awful.placement.bottom(c)
-      end,
-    },
-
-    -- File chooser dialog
-    {
-      rule_any = { role = { "GtkFileChooserDialog" } },
-      properties = { floating = true, width = screen_width * 0.55, height = screen_height * 0.65 },
-    },
-
-    -- Pavucontrol & Bluetooth Devices
-    {
-      rule_any = { class = { "Pavucontrol" }, name = { "Bluetooth Devices" } },
-      properties = { floating = true, width = screen_width * 0.55, height = screen_height * 0.45 },
+      rule_any = { class = { "PanGPUI" } }, -- GlobalProtect
+      properties = { floating = true, placement = awful.placement.top_right },
     },
   }
 end
 
--- return module table
 return rules
