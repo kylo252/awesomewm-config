@@ -12,6 +12,7 @@
 local awful = require("awful")
 local wibox = require("wibox")
 local gears = require("gears")
+
 local clickable_container = require("widgets.clickable-container")
 
 local dpi = require("beautiful").xresources.apply_dpi
@@ -147,6 +148,9 @@ local function list_update(w, buttons, label, data, objects)
 
     w:add(bgb)
   end
+  if w then
+    w:set_max_widget_size(20)
+  end
 end
 
 -- ===================================================================
@@ -174,7 +178,7 @@ local tasklist_buttons = awful.util.table.join(
     c.kill(c)
   end),
   awful.button({}, 3, function()
-      awful.menu.client_list({ theme = { width = 250 } })
+    awful.menu.client_list({ theme = { width = 250 } })
   end),
   awful.button({}, 4, function()
     awful.client.focus.byidx(1)

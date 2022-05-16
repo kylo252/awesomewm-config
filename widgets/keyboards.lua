@@ -4,6 +4,7 @@ kbdcfg.cmd = "xkb-switch -n"
 kbdcfg.widget = wibox.widget.textbox()
 
 kbdcfg.update_indicator = function(layout)
+  layout = type(layout) == "string" and layout or ""
   local variant = string.match(layout, "%((%a+)%)")
   local name = string.match(layout, "%a+")
   -- only indicate unique variants
