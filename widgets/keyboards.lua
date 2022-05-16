@@ -1,27 +1,23 @@
 local wibox = require("wibox")
 local kbdcfg = {}
 kbdcfg.cmd = "xkb-switch -n"
-local indicator_mode = "textbox"
 kbdcfg.widget = wibox.widget.textbox()
--- kbdcfg.widget = wibox.widget.imagebox()
 
-local function set_indicator(mode, layout)
-  local indicator
-  if mode == "textbox" then
-    indicator = string.match(layout, "%((%a+)%)")
-    -- indicator = layout
-    kbdcfg.widget:set_text(indicator)
-  else
-    kbdcfg.widget.image = indicator
-  end
+kbdcfg.update_indicator = function(layout)
+  local variant = string.match(layout, "%((%a+)%)")
+  local name = string.match(layout, "%a+")
+  -- only indicate unique variants
+  local indicator = variant ~= "basic" and layout or name
+  kbdcfg.widget:set_text(indicator)
 end
 
-kbdcfg.current = io.popen("xkb-switch"):read("*a")
-set_indicator(indicator_mode, kbdcfg.current)
+local initial_layout = io.popen("xkb-switch"):read("*l")
+kbdcfg.update_indicator(initial_layout)
+
 kbdcfg.switch = function()
   os.execute(kbdcfg.cmd)
-  kbdcfg.current = io.popen("xkb-switch"):read("*a")
-  set_indicator(indicator_mode, kbdcfg.current)
+  local layout = io.popen("xkb-switch"):read("*l")
+  kbdcfg.update_indicator(layout)
 end
 
 return kbdcfg

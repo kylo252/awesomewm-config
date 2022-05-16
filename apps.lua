@@ -29,7 +29,7 @@ return {
   scrot = "~/.local/bin/scrot_launcher",
   one_shot = { -- List of apps to run on start-up
     "picom --experimental-backends",
-    "setxkbmap -layout 'se,se' -variant 'hack,basic'",
+    "setxkbmap -layout 'us,se' -variant 'basic,basic'",
     "unclutter",
   },
 }
