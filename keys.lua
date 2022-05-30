@@ -104,14 +104,14 @@ keys.globalkeys = gears.table.join(
   }),
 
   awful.key({ modkey }, "space", function()
-    awful.spawn(apps.launcher)
+    awful.spawn.with_shell(apps.launcher)
   end, {
     description = "rofi launcher",
     group = "launcher",
   }),
 
   awful.key({ modkey }, "d", function()
-    awful.spawn(apps.dlauncher)
+    awful.spawn.with_shell(apps.dlauncher)
   end, {
     description = "rofi drun launcher",
     group = "launcher",

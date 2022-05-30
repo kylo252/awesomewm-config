@@ -90,6 +90,10 @@ function rules.create(clientkeys, clientbuttons)
       properties = { tag = tagnames[8], floating = false },
     },
     {
+      rule_any = { class = { "emacs", "Emacs" } },
+      properties = { titlebars_enabled = true },
+    },
+    {
       rule_any = { class = { "Code" } },
       properties = { tag = tagnames[3], floating = true },
     },
