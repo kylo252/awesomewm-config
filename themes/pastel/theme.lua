@@ -51,6 +51,9 @@ theme.border_focus = "#767c85"
 theme.border_marked = theme.fg_urgent
 
 -- Taglist
+theme.taglist_font = "SF Pro Text 28"
+theme.taglist_fg_focus = "#98c379"
+theme.taglist_fg_urgent = "#CC9393"
 theme.taglist_bg_empty = theme.bg_normal
 theme.taglist_bg_occupied = "#ffffff1a"
 theme.taglist_bg_urgent = "#e91e6399"

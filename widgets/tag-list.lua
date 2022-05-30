@@ -26,9 +26,6 @@ local tag_list = {}
 -- ===================================================================
 
 local theme = require("themes.pastel.theme")
-theme.taglist_font = "FontAwesome 24"
-theme.taglist_fg_focus = "#98c379"
-theme.taglist_fg_urgent = "#CC9393"
 
 tag_list.names = sharedtags({
   { name = "", layout = awful.layout.suit.tile },
