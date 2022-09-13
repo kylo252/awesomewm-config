@@ -51,7 +51,7 @@ theme.border_focus = "#767c85"
 theme.border_marked = theme.fg_urgent
 
 -- Taglist
-theme.taglist_font = "SF Pro Text 28"
+theme.taglist_font = "Hack Nerd Font Mono 28"
 theme.taglist_fg_focus = "#98c379"
 theme.taglist_fg_urgent = "#CC9393"
 theme.taglist_bg_empty = theme.bg_normal
@@ -89,8 +89,8 @@ theme.menu_height = dpi(25)
 theme.menu_width = dpi(150)
 theme.menu_border_color = theme.bg_normal
 theme.menu_border_width = dpi(10)
-theme.menu_fg_focus  = theme.fg_focus
-theme.menu_bg_focus  = theme.bg_focus
+theme.menu_fg_focus = theme.fg_focus
+theme.menu_bg_focus = theme.bg_focus
 theme.menu_fg_normal = theme.fg_normal
 theme.menu_bg_normal = theme.bg_normal
 

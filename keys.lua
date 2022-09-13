@@ -125,8 +125,8 @@ keys.globalkeys = gears.table.join(
   }),
 
   awful.key({ modkey }, "g", function()
-    awful.spawn(apps.brave)
-    -- awful.spawn(apps.browser)
+    -- awful.spawn(apps.brave)
+    awful.spawn(apps.browser)
   end, {
     description = "run browser",
     group = "launcher",

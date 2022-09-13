@@ -9,12 +9,9 @@ local rofi_launcher_theme = theme_config_dir .. "/launcher-theme.rasi"
 return {
   terminal = "alacritty",
   terminalAlt = "alacritty --config-file=" .. os.getenv("HOME") .. "/.config/alacritty/alacritty-remote.yml",
-  browser = os.getenv("HOME")
-    .. "/.nix-profile/bin/chromium --enable-features=WebUIDarkMode --force-dark-mode --enable-native-gpu-memory-buffers %U --incognito",
-  browser_normal = os.getenv("HOME")
-    .. "/.nix-profile/bin/chromium --enable-features=WebUIDarkMode --force-dark-mode --enable-native-gpu-memory-buffers %U",
-  edge = "microsoft-edge --use-gl=desktop --enable-features=VaapiVideoDecoder",
-  brave = "brave-browser --use-gl=desktop --enable-features=VaapiVideoDecoder --incognito --disable-brave-extension",
+  browser = "flatpak run com.github.Eloston.UngoogledChromium --use-gl=desktop --enable-features=VaapiVideoDecoder --enable-features=WebUIDarkMode --force-dark-mode",
+  edge = "flatpak run com.microsoft.Edge --use-gl=desktop --enable-features=VaapiVideoDecoder ",
+  brave = "flatpak run com.brave.Browser --use-gl=desktop --enable-features=VaapiVideoDecoder --disable-brave-extension",
   teams = "teams",
   launcher = "rofi -show combi  -display-combi '  ' -theme " .. rofi_theme,
   -- dlauncher = "rofi -normal-window -modi drun -show drun -theme " .. theme_config_dir .. "rofi.rasi",
@@ -24,12 +21,14 @@ return {
   power_manager = os.getenv("HOME") .. "/.config/rofi/powermenu/powermenu.sh",
   translator = "alacritty --command trans en:sv -b", --broken
   windowrunner = "rofi -normal-window -modi window -show window -theme alter",
-  filemanager = "pcmanfm",
+  network_manager = "nm-connection-editor",
+  filemanager = "thunar",
   screenshot = "flameshot gui",
   scrot = "~/.local/bin/scrot_launcher",
   one_shot = { -- List of apps to run on start-up
     "picom --experimental-backends",
+    "touchegg",
     "setxkbmap -layout 'us,se' -variant 'basic,basic'",
-    "unclutter",
+    -- "unclutter",
   },
 }

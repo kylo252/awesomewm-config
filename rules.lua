@@ -66,6 +66,7 @@ function rules.create(clientkeys, clientbuttons)
           "wpa_gui",
           "veromix",
           "xtightvncviewer",
+          "Barrier",
         },
         name = {
           "Event Tester",
