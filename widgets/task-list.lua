@@ -148,9 +148,6 @@ local function list_update(w, buttons, label, data, objects)
 
     w:add(bgb)
   end
-  if w then
-    w:set_max_widget_size(20)
-  end
 end
 
 -- ===================================================================

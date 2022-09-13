@@ -51,11 +51,10 @@ awful.tooltip({
   preferred_positions = { "right", "left", "top", "bottom" },
 })
 
-local last_bluetooth_check = os.time()
 watch("bluetoothctl --monitor list", 5, function(_, stdout)
   -- Check if there  bluetooth
   checker = stdout:match("Controller") -- If 'Controller' string is detected on stdout
-  local widget_icon_nme
+  local widget_icon_name
   if checker ~= nil then
     widget_icon_name = "bluetooth"
   else

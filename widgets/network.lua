@@ -19,18 +19,14 @@ local apps = require("apps")
 
 -- define wireless and ethernet interface names for the network widget
 -- use `ip link` command to determine these
-local network_interfaces = { wlan = "wlp58s0", lan = "enp0s31f6" }
+local network_interfaces = { wlan = "wlan0", lan = "enp61s0u2u4" }
 local network_icon_dir = require("icons")["network"]
 
 local network_mode = nil
 
 local return_button = function()
-  local update_notify_no_access = true
-  local notify_no_access_quota = 0
-
   local startup = true
   local reconnect_startup = true
-  local notify_new_wifi_conn = false
 
   local widget = wibox.widget({
     {
@@ -115,7 +111,7 @@ local return_button = function()
     -- Create wireless connection notification
     local notify_connected = function(essid)
       local message = 'You are now connected to <b>"' .. essid .. '"</b>'
-      local title = "Connection Established"
+      local title = "Wireless Connection Established"
       local app_name = "System Notification"
       local icon = network_icon_dir .. "connected_notification.svg"
       network_notify(message, title, app_name, icon)
@@ -133,7 +129,7 @@ local return_button = function()
           .. "</b>\nWireless Interface: <b>"
           .. network_interfaces.wlan
           .. "</b>\nWiFi-Strength: <b>"
-          .. tostring(wifi_strength)
+          .. tostring(strength)
           .. "%"
           .. "</b>\nBit rate: <b>"
           .. tostring(bitrate)
@@ -156,15 +152,16 @@ local return_button = function()
     local update_wireless_icon = function(strength)
       awful.spawn.easy_async_with_shell(check_internet_health, function(stdout)
         local widget_icon_name = "wifi-strength"
+        local wifi_strength_rounded = math.floor(strength / 25 + 0.5)
+        widget_icon_name = widget_icon_name .. "-" .. tostring(wifi_strength_rounded)
         if not stdout:match("Connected but no internet") then
           if startup or reconnect_startup then
-            awesome.emit_signal("system::network_connected")
+            widget_button:emit_signal("system::network_connected")
           end
-          widget_icon_name = widget_icon_name .. "-" .. tostring(strength)
-          update_wireless_data(wifi_strength_rounded, true)
+          update_wireless_data(strength, true)
         else
-          widget_icon_name = widget_icon_name .. "-" .. tostring(strength) .. "-alert"
-          update_wireless_data(wifi_strength_rounded, false)
+          widget_icon_name = widget_icon_name .."-alert"
+          update_wireless_data(strength, false)
         end
         widget.icon:set_image(network_icon_dir .. widget_icon_name .. ".svg")
       end)
@@ -180,9 +177,8 @@ local return_button = function()
           if not tonumber(stdout) then
             return
           end
-          wifi_strength = tonumber(stdout)
-          local wifi_strength_rounded = math.floor(wifi_strength / 25 + 0.5)
-          update_wireless_icon(wifi_strength_rounded)
+          local wifi_strength = tonumber(stdout)
+          update_wireless_icon(wifi_strength)
         end
       )
     end
@@ -213,9 +209,9 @@ local return_button = function()
       else
         update_tooltip("Ethernet Interface: <b>" .. network_interfaces.lan .. "</b>")
         if startup or reconnect_startup then
-          awesome.emit_signal("system::network_connected")
+          widget_button:emit_signal("system::network_connected")
           notify_connected()
-          update_startup(false)
+          update_startup()
         end
         update_reconnect_startup(false)
       end
@@ -225,7 +221,7 @@ local return_button = function()
 
   local update_disconnected = function()
     local notify_wireless_disconnected = function(essid)
-      local message = "Wi-Fi network has been disconnected"
+      local message = "Wi-Fi network [" .. essid .. "] has been disconnected"
       local title = "Connection Disconnected"
       local app_name = "System Notification"
       local icon = network_icon_dir .. "wifi-strength-off.svg"
@@ -233,7 +229,7 @@ local return_button = function()
     end
 
     local notify_wired_disconnected = function(essid)
-      local message = "Ethernet network has been disconnected"
+      local message = "Ethernet network [" .. essid .. "] has been disconnected"
       local title = "Connection Disconnected"
       local app_name = "System Notification"
       local icon = network_icon_dir .. "wired-off.svg"
@@ -306,7 +302,6 @@ local return_button = function()
 			print_network_mode
 
 			]=], function(stdout)
-      local mode = stdout:gsub("%\n", "")
       if stdout:match("No internet connection") then
         update_disconnected()
       elseif stdout:match("wireless") then
@@ -317,7 +312,7 @@ local return_button = function()
     end)
   end
 
-  local network_updater = gears.timer({
+  gears.timer({
     timeout = 5,
     autostart = true,
     call_now = true,
