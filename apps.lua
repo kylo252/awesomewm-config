@@ -1,10 +1,7 @@
 -- define default apps (global variable so other components can access it)
 local gears = require("gears")
 
-local theme_config_dir = gears.filesystem.get_configuration_dir() .. "themes/pastel"
--- local rofi_theme = theme_config_dir .. "/theme.rasi"
-local rofi_theme = theme_config_dir .. "/theme.rasi"
-local rofi_launcher_theme = theme_config_dir .. "/launcher-theme.rasi"
+local theme_dir = gears.filesystem.get_configuration_dir() .. "themes/pastel"
 
 return {
   terminal = "alacritty",
@@ -13,11 +10,10 @@ return {
   edge = "flatpak run com.microsoft.Edge --use-gl=desktop --enable-features=VaapiVideoDecoder ",
   brave = "flatpak run com.brave.Browser --use-gl=desktop --enable-features=VaapiVideoDecoder --disable-brave-extension",
   teams = "teams",
-  launcher = "rofi -show combi  -display-combi '  ' -theme " .. rofi_theme,
-  -- dlauncher = "rofi -normal-window -modi drun -show drun -theme " .. theme_config_dir .. "rofi.rasi",
+  launcher = "rofi -show combi  -display-combi '  ' -theme " .. theme_dir .. "/launcher.rasi",
+  dlauncher = "rofi -no-lazy-grab -show drun -modi drun -theme " .. theme_dir .. "/dlauncher.rasi",
   screen_manager = "bash -c ~/.config/rofi/rofi-scripts/monitor_layout.sh",
-  quickmenu = "rofi -show drun -theme dmenu ",
-  dlauncher = "rofi -no-lazy-grab -show drun -modi drun -theme " .. rofi_launcher_theme,
+  quickmenu = "rofi -show drun -theme dmenu -no-disable-history",
   power_manager = os.getenv("HOME") .. "/.config/rofi/powermenu/powermenu.sh",
   translator = "alacritty --command trans en:sv -b", --broken
   windowrunner = "rofi -normal-window -modi window -show window -theme alter",
