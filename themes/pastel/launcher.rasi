@@ -7,7 +7,8 @@
 
 /*****----- Configuration -----*****/
 configuration {
-  modi:                       "combi,drun,filebrowser,window";
+  modi:                       "combi,filebrowser,window";
+  combi-modi:                 "window,drun";
   show-icons:                 true;
   display-combi:              "";
   display-drun:               "";
@@ -15,6 +16,7 @@ configuration {
   display-window:             "";
   drun-display-format:        "{name}";
   window-format:              "{w} · {c} · {t}";
+  combi-hide-mode-prefix:     true;
   hide-scrollbar:             true;
 }
 
