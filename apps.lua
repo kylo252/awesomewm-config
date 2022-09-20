@@ -14,8 +14,8 @@ return {
   dlauncher = "rofi -no-lazy-grab -show drun -modi drun -theme " .. theme_dir .. "/dlauncher.rasi",
   screen_manager = "bash -c ~/.config/rofi/rofi-scripts/monitor_layout.sh",
   quickmenu = "rofi -show drun -theme dmenu -no-disable-history",
-  power_manager ="xfce4-power-manager-settings",
-  power_menu ="powermenu_t1",
+  power_manager = "xfce4-power-manager-settings",
+  power_menu = "powermenu_t1",
   translator = "alacritty --command trans en:sv -b", --broken
   windowrunner = "rofi -normal-window -modi window -show window -theme alter",
   network_manager = "nm-connection-editor",
@@ -23,10 +23,10 @@ return {
   screenshot = "flameshot gui",
   scrot = "~/.local/bin/scrot_launcher",
   one_shot = { -- List of apps to run on start-up
-    "picom --experimental-backends",
+    "picom --experimental-backends --config " .. theme_dir .. "/picom.conf",
     "touchegg",
     "setxkbmap -layout 'us,se' -variant 'basic,basic'",
-    "xfce4-power-manager"
+    "xfce4-power-manager",
     -- "unclutter",
   },
 }
