@@ -44,8 +44,8 @@ keys.desktopbuttons = gears.table.join(
   awful.button({}, 1, function()
     naughty.destroy_all_notifications()
   end),
-  -- Extra mouse buttons
-  awful.button({}, 3, function()
+  -- left click for menu
+  awful.button({}, 2, function()
     awesome_menus.main:toggle()
   end)
 )
