@@ -12,9 +12,11 @@
 local naughty = require("naughty")
 local beautiful = require("beautiful")
 local gears = require("gears")
-local wibox = require("wibox")
 local awful = require("awful")
 local dpi = beautiful.xresources.apply_dpi
+
+---@diagnostic disable-next-line: undefined-global
+local capi = { awesome = awesome, client = client, mouse = mouse, root = root, screen = screen }
 
 -- ===================================================================
 -- Theme Definitions
@@ -73,17 +75,17 @@ naughty.config.presets.warn = naughty.config.presets.critical
 -- Error Handling
 -- ===================================================================
 
-if awesome.startup_errors then
+if capi.awesome.startup_errors then
   naughty.notify({
     preset = naughty.config.presets.critical,
     title = "Oops, there were errors during startup!",
-    text = awesome.startup_errors,
+    text = capi.awesome.startup_errors,
   })
 end
 
 do
   local in_error = false
-  awesome.connect_signal("debug::error", function(err)
+  capi.awesome.connect_signal("debug::error", function(err)
     if in_error then
       return
     end

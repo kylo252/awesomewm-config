@@ -2,7 +2,12 @@ local M = {}
 local awful = require("awful")
 local gears = require("gears")
 local beautiful = require("beautiful")
+local naughty = require("naughty")
 local dpi = beautiful.xresources.apply_dpi
+local debug_mode = false
+
+---@diagnostic disable-next-line: undefined-global
+local capi = { awesome = awesome, client = client, mouse = mouse, root = root, screen = screen }
 
 -- ===================================================================
 -- Movement Functions (Called by some keybinds)
@@ -11,7 +16,7 @@ local dpi = beautiful.xresources.apply_dpi
 -- Move given client to given direction
 function M.move_client(c, direction)
   -- If client is floating, move to edge
-  if c.floating or (awful.layout.get(mouse.screen) == awful.layout.suit.floating) then
+  if c.floating or (awful.layout.get(capi.mouse.screen) == awful.layout.suit.floating) then
     local workarea = awful.screen.focused().workarea
     if direction == "up" then
       c:geometry({ nil, y = workarea.y + beautiful.useless_gap * 2, nil, nil })
@@ -33,7 +38,7 @@ function M.move_client(c, direction)
       })
     end
     -- Otherwise swap the client in the tiled layout
-  elseif awful.layout.get(mouse.screen) == awful.layout.suit.max then
+  elseif awful.layout.get(capi.mouse.screen) == awful.layout.suit.max then
     if direction == "up" or direction == "left" then
       awful.client.swap.byidx(-1, c)
     elseif direction == "down" or direction == "right" then
@@ -48,7 +53,7 @@ function M.resize_client(c, direction)
   -- Resize client in given direction
   local floating_resize_amount = dpi(20)
   local tiling_resize_factor = 0.05
-  if awful.layout.get(mouse.screen) == awful.layout.suit.floating or (c and c.floating) then
+  if awful.layout.get(capi.mouse.screen) == awful.layout.suit.floating or (c and c.floating) then
     if direction == "up" then
       c:relative_move(0, 0, 0, -floating_resize_amount)
     elseif direction == "down" then
@@ -73,8 +78,8 @@ end
 
 -- raise focused client
 function M.raise_client()
-  if client.focus then
-    client.focus:raise()
+  if capi.client.focus then
+    awful.client.focus:raise()
   end
 end
 

@@ -9,10 +9,12 @@
 -- Initialization
 -- ===================================================================
 
+---@diagnostic disable-next-line: undefined-global
+local capi = { mouse = mouse, screen = screen, client = client, awesome = awesome, root = root }
+
 local awful = require("awful")
 local beautiful = require("beautiful")
 local wibox = require("wibox")
-local gears = require("gears")
 local dpi = beautiful.xresources.apply_dpi
 
 -- import widgets
@@ -75,8 +77,8 @@ top_panel.create = function(s)
   end
 
   -- connect panel visibility function to relevant signals
-  client.connect_signal("property::fullscreen", change_panel_visibility)
-  client.connect_signal("focus", change_panel_visibility)
+  capi.client.connect_signal("property::fullscreen", change_panel_visibility)
+  capi.client.connect_signal("focus", change_panel_visibility)
 end
 
 return top_panel

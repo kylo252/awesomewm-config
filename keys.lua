@@ -11,6 +11,9 @@
 -- Initialization
 -- ===================================================================
 
+---@diagnostic disable-next-line: undefined-global
+local capi = { awesome = awesome, client = client, screen = screen }
+
 local awful = require("awful")
 local gears = require("gears")
 local naughty = require("naughty")
@@ -190,7 +193,7 @@ keys.globalkeys = gears.table.join(
 
   -- Show/hide wibox
   awful.key({ modkey }, "b", function()
-    for s in screen do
+    for s in capi.screen do
       s.mywibox.visible = not s.mywibox.visible
       if s.mybottomwibox then
         s.mybottomwibox.visible = not s.mybottomwibox.visible
@@ -202,12 +205,12 @@ keys.globalkeys = gears.table.join(
   }),
 
   -- Reload Awesome
-  awful.key({ modkey, "Control" }, "r", awesome.restart, { description = "reload awesome", group = "awesome" }),
+  awful.key({ modkey, "Control" }, "r", capi.awesome.restart, { description = "reload awesome", group = "awesome" }),
 
   -- Quit Awesome
   awful.key({ modkey }, "F4", function()
     -- emit signal to show the exit screen
-    awesome.emit_signal("show_exit_screen")
+    capi.awesome.emit_signal("show_exit_screen")
   end, {
     description = "toggle exit screen",
     group = "awesome",
@@ -353,14 +356,14 @@ keys.globalkeys = gears.table.join(
   --    {description = "decrease the number of master clients", group = "layout"}
   -- ),
   -- Layout control
-  awful.key({ modkey, "Control" }, "s", function()
-    awful.client.swap(awful.client.getmaster())
+  awful.key({ modkey, "Control" }, "s", function(c)
+    c:swap(awful.client.getmaster())
   end, {
     description = "move to master",
     group = "layout",
   }),
-  awful.key({ modkey, altkey }, "s", function()
-    awful.client.move_to_screen()
+  awful.key({ modkey, altkey }, "s", function(c)
+    c:move_to_screen()
   end, {
     description = "move to screen",
     group = "layout",
@@ -467,7 +470,7 @@ keys.clientkeys = gears.table.join(
     local c = awful.client.restore()
     -- Focus restored client
     if c then
-      client.focus = c
+      awful.client.focus = c
       c:raise()
     end
   end, {
@@ -542,7 +545,7 @@ keys.clientkeys = gears.table.join(
   }),
   awful.key({}, "XF86PowerOff", function()
     -- emit signal to show the exit screen
-    awesome.emit_signal("show_exit_screen")
+    capi.awesome.emit_signal("show_exit_screen")
   end, {
     description = "toggle exit screen",
     group = "hotkeys",
@@ -550,21 +553,21 @@ keys.clientkeys = gears.table.join(
   -- ALSA volume control
   awful.key({}, "XF86AudioRaiseVolume", function()
     awful.spawn("amixer -Mq set Master,0 5%+ unmute", false)
-    awesome.emit_signal("volume_change")
+    capi.awesome.emit_signal("volume_change")
   end, {
     description = "volume up",
     group = "hotkeys",
   }),
   awful.key({}, "XF86AudioLowerVolume", function()
     awful.spawn("amixer -Mq set Master,0 5%- unmute", false)
-    awesome.emit_signal("volume_change")
+    capi.awesome.emit_signal("volume_change")
   end, {
     description = "volume down",
     group = "hotkeys",
   }),
   awful.key({}, "XF86AudioMute", function()
     awful.spawn("amixer -q set Master toggle", false)
-    awesome.emit_signal("volume_change")
+    capi.awesome.emit_signal("volume_change")
   end, {
     description = "toggle mute",
     group = "hotkeys",
@@ -621,10 +624,10 @@ for i = 1, 9 do
 
     -- Move client to tag.
     awful.key({ modkey, "Shift" }, "#" .. i + 9, function()
-      if client.focus then
+      if awful.client.focus then
         local tag = tagnames[i]
         if tag then
-          client.focus:move_to_tag(tag)
+          capi.client.focus:move_to_tag(tag)
         end
       end
     end, {
@@ -633,10 +636,10 @@ for i = 1, 9 do
     }),
     -- Move client to shared.
     awful.key({ modkey, "Shift" }, "s", function()
-      if client.focus then
+      if awful.client.focus then
         local tag = tagnames[8]
         if tag then
-          client.focus:move_to_tag(tag)
+          awful.client.focus:move_to_tag(tag)
         end
       end
     end, {
@@ -645,10 +648,10 @@ for i = 1, 9 do
     }),
     -- Toggle tag on focused client.
     awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9, function()
-      if client.focus then
+      if awful.client.focus then
         local tag = tagnames[i]
         if tag then
-          client.focus:toggle_tag(tag)
+          awful.client.focus:toggle_tag(tag)
         end
       end
     end, {

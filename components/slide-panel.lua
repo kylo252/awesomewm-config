@@ -1,15 +1,9 @@
 -- ===================================================================
 -- Initialization
 -- ===================================================================
-local beautiful = require("beautiful")
 local wibox = require("wibox")
-local dpi = beautiful.xresources.apply_dpi
-local awful = require("awful")
-local gears = require("gears")
 
 local slidebar = require("slidebar")
-local tag_list = require("widgets.tag-list")
-local separator = require("widgets.horizontal-separator")
 local folder = require("widgets.folder")
 -- local theme = require("custom-theme")
 local home_dir = os.getenv("HOME")

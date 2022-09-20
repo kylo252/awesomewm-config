@@ -11,12 +11,9 @@
 
 local gears = require("gears")
 local awful = require("awful")
-local wibox = require("wibox")
 local sharedtags = require("sharedtags")
 
 local dpi = require("beautiful").xresources.apply_dpi
-local capi = { button = button }
-local clickable_container = require("widgets.clickable-container")
 
 -- define module table
 local tag_list = {}
