@@ -5,10 +5,14 @@
 --      ██║  ██║╚███╔███╔╝███████╗███████║╚██████╔╝██║ ╚═╝ ██║███████╗
 --      ╚═╝  ╚═╝ ╚══╝╚══╝ ╚══════╝╚══════╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝
 
+---@diagnostic disable-next-line: undefined-global
+local capi = { awesome = awesome, client = client, mouse = mouse, root = root, screen = screen }
+
 -- Standard awesome libraries
-local gears = require("gears")
-local awful = require("awful")
 local apps = require("apps")
+local awful = require("awful")
+
+local gears = require("gears")
 local utils = require("utils")
 
 -- ===================================================================
@@ -33,7 +37,7 @@ require("components.notifications")
 local top_panel = require("components.top-panel")
 
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
-screen.connect_signal("property::geometry", utils.set_wallpaper)
+capi.screen.connect_signal("property::geometry", utils.set_wallpaper)
 
 -- Run all the apps listed in run_on_start_up
 local one_shot_apps = apps["one_shot"]
@@ -59,8 +63,8 @@ end)
 
 -- Import Keybinds
 local keys = require("keys")
-root.keys(keys.globalkeys)
-root.buttons(keys.desktopbuttons)
+capi.root.keys(keys.globalkeys)
+capi.root.buttons(keys.desktopbuttons)
 
 -- Import rules
 local create_rules = require("rules").create
@@ -76,13 +80,13 @@ awful.layout.layouts = {
 }
 
 -- Signal function to execute when a new client appears.
-client.connect_signal("manage", function(c)
+capi.client.connect_signal("manage", function(c)
   -- Set the window as a slave (put it at the end of others instead of setting it as master)
-  if not awesome.startup then
+  if not capi.awesome.startup then
     awful.client.setslave(c)
   end
 
-  if awesome.startup and not c.size_hints.user_position and not c.size_hints.program_position then
+  if capi.awesome.startup and not c.size_hints.user_position and not c.size_hints.program_position then
     -- Prevent clients from being unreachable after screen count changes.
     awful.placement.no_offscreen(c)
   end
@@ -105,9 +109,9 @@ require("awful.autofocus")
 -- ===================================================================
 
 -- Reload config when screen geometry changes
-screen.connect_signal("property::geometry", awesome.restart)
+capi.screen.connect_signal("property::geometry", capi.awesome.restart)
 
-client.connect_signal("focus", function(c)
+capi.client.connect_signal("focus", function(c)
   local clients = awful.client.tiled(c.screen)
   if clients and #clients > 1 then
     c.border_color = beautiful.border_focus
@@ -116,7 +120,7 @@ client.connect_signal("focus", function(c)
   end
 end)
 
-client.connect_signal("unfocus", function(c)
+capi.client.connect_signal("unfocus", function(c)
   c.border_color = beautiful.border_normal
 end)
 

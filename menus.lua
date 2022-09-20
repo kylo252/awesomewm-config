@@ -5,6 +5,9 @@ local awful = require("awful")
 local hotkeys_popup = require("awful.hotkeys_popup")
 require("awful.autofocus")
 
+---@diagnostic disable-next-line: undefined-global
+local capi = { awesome = awesome, screen = screen }
+
 local awesome_menus = {}
 
 local apps = require("apps")
@@ -17,12 +20,12 @@ awesome_menus.drop = {
     end,
   },
   { "Manual", string.format("%s -e man awesome", apps.terminal) },
-  { "Edit config", string.format("%s -e %s %s", apps.terminal, apps.editor, awesome.conffile) },
-  { "Restart", awesome.restart },
+  { "Edit config", string.format("%s -e %s %s", apps.terminal, apps.editor, capi.awesome.conffile) },
+  { "Restart", capi.awesome.restart },
   {
     "Quit",
     function()
-      awesome.quit()
+      capi.awesome.quit()
     end,
   },
 }

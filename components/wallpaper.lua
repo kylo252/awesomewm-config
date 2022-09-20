@@ -9,9 +9,12 @@
 -- Imports
 -- ===================================================================
 
+---@diagnostic disable-next-line: undefined-global
+local capi = { mouse = mouse, screen = screen, client = client, awesome = awesome, root = root }
+
 local awful = require("awful")
-local gears = require("gears")
 local naughty = require("naughty")
+local tag = require("awful.tag")
 
 -- ===================================================================
 -- Initialization
@@ -45,7 +48,7 @@ if not exists(blurred_wallpaper) then
     text = "Generating blurred wallpaper...",
   })
   -- uses image magick to create a blurred version of the wallpaper
-  awful.spawn.with_shell("convert -filter Gaussian -blur 0x30 " .. wallpaper .. " " .. blurredWallpaper)
+  awful.spawn.with_shell("convert -filter Gaussian -blur 0x30 " .. wallpaper .. " " .. blurred_wallpaper)
 end
 
 -- ===================================================================
@@ -80,12 +83,12 @@ tag.connect_signal("property::selected", function(t)
 end)
 
 -- check if wallpaper should be blurred on client open
-client.connect_signal("manage", function(c)
+capi.client.connect_signal("manage", function(_)
   blur()
 end)
 
 -- check if wallpaper should be unblurred on client close
-client.connect_signal("unmanage", function(c)
+capi.client.connect_signal("unmanage", function(_)
   local t = awful.screen.focused().selected_tag
   -- check if tag has any clients
   for _ in pairs(t:clients()) do

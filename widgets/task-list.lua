@@ -13,10 +13,12 @@ local awful = require("awful")
 local wibox = require("wibox")
 local gears = require("gears")
 
+---@diagnostic disable-next-line: undefined-global
+local capi = { button = button }
+
 local clickable_container = require("widgets.clickable-container")
 
 local dpi = require("beautiful").xresources.apply_dpi
-local capi = { button = button }
 local ICON_DIR = gears.filesystem.get_configuration_dir() .. "/icons/"
 
 -- define module table
@@ -156,7 +158,7 @@ end
 
 local tasklist_buttons = awful.util.table.join(
   awful.button({}, 1, function(c)
-    if c == client.focus then
+    if c == capi.client.focus then
       c.minimized = true
     else
       -- Without this, the following
@@ -167,7 +169,7 @@ local tasklist_buttons = awful.util.table.join(
       end
       -- This will also un-minimize
       -- the client, if needed
-      client.focus = c
+      capi.client.focus = c
       c:raise()
     end
   end),
