@@ -297,6 +297,20 @@ keys.globalkeys = gears.table.join(
     description = "focus right",
     group = "focus",
   }),
+  awful.key({ modkey }, "h", function()
+    awful.client.focus.bydirection("left")
+    utils.raise_client()
+  end, {
+    description = "focus left (alt)",
+    group = "focus",
+  }),
+  awful.key({ modkey }, "l", function()
+    awful.client.focus.bydirection("right")
+    utils.raise_client()
+  end, {
+    description = "focus right (alt)",
+    group = "focus",
+  }),
 
   -- modkey+Tab: cycle through all clients.
   awful.key({ modkey }, "Tab", function()
